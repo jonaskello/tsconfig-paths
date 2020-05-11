@@ -52,6 +52,37 @@ mocha -r ts-node/register -r tsconfig-paths/register "test/**/*.ts"
 
 As long as the command has something similar to a `--require` option that can load a module before it starts, tsconfig-paths should be able to work with it.
 
+### With `ts-node` and VSCode
+
+The following is an example configuration for the `.vscode/launch.json`.
+
+``` js
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Functions",
+      "request": "launch",
+      "type": "node",
+      "runtimeArgs": [
+        "-r",
+        "${workspaceFolder}/functions/node_modules/ts-node/register",
+        "-r",
+        "${workspaceFolder}/functions/node_modules/tsconfig-paths/register"
+      ],
+      "args": ["${workspaceFolder}/functions/src/index.ts"],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/functions/tsconfig.json"
+      },
+      "outFiles": ["${workspaceFolder}/functions/lib/**/*.js"]
+    }
+  ]
+}
+```
+
 ## Bootstrapping with explicit params
 
 If you want more granular control over tsconfig-paths you can bootstrap it. This can be useful if you for instance have compiled with `tsc` to another directory where `tsconfig.json` doesn't exists.
