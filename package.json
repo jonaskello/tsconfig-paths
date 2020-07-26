@@ -7,6 +7,14 @@
   "author": "Jonas Kello",
   "license": "MIT",
   "repository": "https://github.com/dividab/tsconfig-paths",
+  "files": [
+    "/src",
+    "/lib",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/minimist": "^1.2.0",
