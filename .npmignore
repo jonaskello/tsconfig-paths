@@ -1,6 +1,6 @@
 .idea/
 src/
-tests/
+test/
 example/
 custom-typings/
 scripts/
@@ -14,3 +14,5 @@ coverage/
 .nyc_output/
 coverage.lcov
 .travis.yml
+.nycrc.json
+tslint.json
