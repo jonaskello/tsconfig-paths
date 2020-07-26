@@ -12,11 +12,11 @@ export interface Paths {
 /**
  * Converts an absolute baseUrl and paths to an array of absolute mapping entries.
  * The array is sorted by longest prefix.
- * Having an array with entries allows us to keep a sorting order rather than 
- * sort by keys each time we use the mappings. 
- * @param absoluteBaseUrl 
- * @param paths 
- * @param addMatchAll 
+ * Having an array with entries allows us to keep a sorting order rather than
+ * sort by keys each time we use the mappings.
+ * @param absoluteBaseUrl
+ * @param paths
+ * @param addMatchAll
  */
 export function getAbsoluteMappingEntries(
   absoluteBaseUrl: string,
@@ -31,7 +31,7 @@ export function getAbsoluteMappingEntries(
   for (const key of sortedKeys) {
     absolutePaths.push({
       pattern: key,
-      paths: paths[key].map(pathToResolve =>
+      paths: paths[key].map((pathToResolve) =>
         path.join(absoluteBaseUrl, pathToResolve)
       )
     });

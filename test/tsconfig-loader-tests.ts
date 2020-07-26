@@ -70,7 +70,7 @@ describe("walkForTsConfig", () => {
     const pathToTsconfig = join("/root", "dir1", "tsconfig.json");
     const res = walkForTsConfig(
       join("/root", "dir1"),
-      path => path === pathToTsconfig
+      (path) => path === pathToTsconfig
     );
     assert.equal(res, pathToTsconfig);
   });
@@ -79,7 +79,7 @@ describe("walkForTsConfig", () => {
     const pathToTsconfig = join("/root", "tsconfig.json");
     const res = walkForTsConfig(
       join("/root", "dir1"),
-      path => path === pathToTsconfig
+      (path) => path === pathToTsconfig
     );
     assert.equal(res, pathToTsconfig);
   });
@@ -95,8 +95,8 @@ describe("loadConfig", () => {
     const config = { compilerOptions: { baseUrl: "hej" } };
     const res = loadTsconfig(
       "/root/dir1/tsconfig.json",
-      path => path === "/root/dir1/tsconfig.json",
-      _ => JSON.stringify(config)
+      (path) => path === "/root/dir1/tsconfig.json",
+      (_) => JSON.stringify(config)
     );
     assert.deepEqual(res, config);
   });
@@ -105,8 +105,8 @@ describe("loadConfig", () => {
     const config = { compilerOptions: { baseUrl: "hej" } };
     const res = loadTsconfig(
       "/root/dir1/tsconfig.json",
-      path => path === "/root/dir1/tsconfig.json",
-      _ => `{
+      (path) => path === "/root/dir1/tsconfig.json",
+      (_) => `{
           // my comment
           "compilerOptions": { 
             "baseUrl": "hej"
@@ -120,8 +120,8 @@ describe("loadConfig", () => {
     const config = { compilerOptions: { baseUrl: "hej" } };
     const res = loadTsconfig(
       "/root/dir1/tsconfig.json",
-      path => path === "/root/dir1/tsconfig.json",
-      _ => `{
+      (path) => path === "/root/dir1/tsconfig.json",
+      (_) => `{
           "compilerOptions": { 
             "baseUrl": "hej",
           },
@@ -146,8 +146,8 @@ describe("loadConfig", () => {
     const baseConfigPath = join("/root", "base-config.json");
     const res = loadTsconfig(
       join("/root", "dir1", "tsconfig.json"),
-      path => path === firstConfigPath || path === baseConfigPath,
-      path => {
+      (path) => path === firstConfigPath || path === baseConfigPath,
+      (path) => {
         if (path === firstConfigPath) {
           return JSON.stringify(firstConfig);
         }
@@ -177,11 +177,11 @@ describe("loadConfig", () => {
     const thirdConfigPath = join("/root", "dir1", "dir2", "third-config.json");
     const res = loadTsconfig(
       join("/root", "dir1", "dir2", "third-config.json"),
-      path =>
+      (path) =>
         path === firstConfigPath ||
         path === secondConfigPath ||
         path === thirdConfigPath,
-      path => {
+      (path) => {
         if (path === firstConfigPath) {
           return JSON.stringify(firstConfig);
         }

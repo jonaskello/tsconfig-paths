@@ -76,7 +76,7 @@ export function register(explicitParams: ExplicitParams): () => void {
   const originalResolveFilename = Module._resolveFilename;
   const coreModules = getCoreModules(Module.builtinModules);
   // tslint:disable-next-line:no-any
-  Module._resolveFilename = function(request: string, _parent: any): string {
+  Module._resolveFilename = function (request: string, _parent: any): string {
     const isCoreModule = coreModules.hasOwnProperty(request);
     if (!isCoreModule) {
       const found = matchPath(request);

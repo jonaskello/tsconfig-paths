@@ -3,8 +3,8 @@ import { createMatchPathAsync } from "../src/match-path-async";
 import * as Tests from "./data/match-path-data";
 
 describe("match-path-async", () => {
-  Tests.tests.forEach(t =>
-    it(t.name, done => {
+  Tests.tests.forEach((t) =>
+    it(t.name, (done) => {
       const matchPath = createMatchPathAsync(
         t.absoluteBaseUrl,
         t.paths,

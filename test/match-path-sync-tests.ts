@@ -3,7 +3,7 @@ import { createMatchPath } from "../src/match-path-sync";
 import * as Tests from "./data/match-path-data";
 
 describe("match-path-sync", () => {
-  Tests.tests.forEach(t =>
+  Tests.tests.forEach((t) =>
     it(t.name, () => {
       const matchPath = createMatchPath(
         t.absoluteBaseUrl,

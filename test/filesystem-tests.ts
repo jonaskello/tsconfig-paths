@@ -16,14 +16,14 @@ describe("filesystem", () => {
     assert.equal(result, false);
   });
 
-  it("should find file that exists, async", done => {
+  it("should find file that exists, async", (done) => {
     Filesystem.fileExistsAsync(fileThatExists, (_err, result) => {
       assert.equal(result, true);
       done();
     });
   });
 
-  it("should not find file that not exists, async", done => {
+  it("should not find file that not exists, async", (done) => {
     Filesystem.fileExistsAsync(fileThatNotExists, (_err, result) => {
       assert.equal(result, false);
       done();
@@ -36,7 +36,7 @@ describe("filesystem", () => {
     assert.equal(result.main, "lib/index.js");
   });
 
-  it("should load json, async", done => {
+  it("should load json, async", (done) => {
     Filesystem.readJsonFromDiskAsync(fileThatExists, (_err, result) => {
       assert.isOk(result);
       assert.equal(result.main, "lib/index.js");

@@ -56,7 +56,7 @@ As long as the command has something similar to a `--require` option that can lo
 
 The following is an example configuration for the `.vscode/launch.json`.
 
-``` js
+```js
 {
   "version": "0.2.0",
   "configurations": [

@@ -16,11 +16,11 @@
     "@types/strip-json-comments": "^0.0.30",
     "chai": "^4.1.2",
     "codecov": "^3.1.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.3.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "mocha": "^5.2.0",
     "nyc": "^11.4.1",
-    "prettier": "1.7.4",
+    "prettier": "^2.0.5",
     "rimraf": "^2.6.2",
     "shelljs": "^0.7.5",
     "ts-node": "^7.0.0",
@@ -54,10 +54,18 @@
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "lint-staged": {
-    "*.ts": [
-      "tslint",
+    "*.{ts,tsx}": "tslint",
+    "*.{ts,tsx,json,css}": [
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "prettier": {
+    "trailingComma": "none"
   }
 }

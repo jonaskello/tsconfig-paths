@@ -41,7 +41,7 @@ export function getPathsToTry(
         pathsToTry.push({ type: "file", path: physicalPath });
         pathsToTry.push(
           ...extensions.map(
-            e => ({ type: "extension", path: physicalPath + e } as TryPath)
+            (e) => ({ type: "extension", path: physicalPath + e } as TryPath)
           )
         );
         pathsToTry.push({
@@ -51,7 +51,7 @@ export function getPathsToTry(
         const indexPath = path.join(physicalPath, "/index");
         pathsToTry.push(
           ...extensions.map(
-            e => ({ type: "index", path: indexPath + e } as TryPath)
+            (e) => ({ type: "index", path: indexPath + e } as TryPath)
           )
         );
       }
@@ -65,12 +65,12 @@ export function getStrippedPath(tryPath: TryPath): string {
   return tryPath.type === "index"
     ? dirname(tryPath.path)
     : tryPath.type === "file"
-      ? tryPath.path
-      : tryPath.type === "extension"
-        ? removeExtension(tryPath.path)
-        : tryPath.type === "package"
-          ? tryPath.path
-          : exhaustiveTypeException(tryPath.type);
+    ? tryPath.path
+    : tryPath.type === "extension"
+    ? removeExtension(tryPath.path)
+    : tryPath.type === "package"
+    ? tryPath.path
+    : exhaustiveTypeException(tryPath.type);
 }
 
 export function exhaustiveTypeException(check: never): never {
@@ -80,7 +80,7 @@ export function exhaustiveTypeException(check: never): never {
 /**
  * Matches pattern with a single star against search.
  * Star must match at least one character to be considered a match.
- * @param patttern for example "foo*" 
+ * @param patttern for example "foo*"
  * @param search for example "fooawesomebar"
  * @returns the part of search that * matches, or undefined if no match.
  */
