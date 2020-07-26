@@ -3,7 +3,7 @@ import {
   configLoader,
   loadConfig,
   ConfigLoaderFailResult,
-  ConfigLoaderSuccessResult
+  ConfigLoaderSuccessResult,
 } from "../src/config-loader";
 import { join } from "path";
 
@@ -13,10 +13,10 @@ describe("config-loader", (): void => {
       explicitParams: {
         baseUrl: "/foo/bar",
         paths: {
-          asd: ["asd"]
-        }
+          asd: ["asd"],
+        },
       },
-      cwd: "/baz"
+      cwd: "/baz",
     });
 
     const successResult = result as ConfigLoaderSuccessResult;
@@ -30,10 +30,10 @@ describe("config-loader", (): void => {
       explicitParams: {
         baseUrl: "bar/",
         paths: {
-          asd: ["asd"]
-        }
+          asd: ["asd"],
+        },
       },
-      cwd: "/baz"
+      cwd: "/baz",
     });
 
     const successResult = result as ConfigLoaderSuccessResult;
@@ -49,8 +49,8 @@ describe("config-loader", (): void => {
       tsConfigLoader: (_: any) => ({
         tsConfigPath: "/baz/tsconfig.json",
         baseUrl: "./src",
-        paths: {}
-      })
+        paths: {},
+      }),
     });
 
     const successResult = result as ConfigLoaderSuccessResult;
@@ -66,8 +66,8 @@ describe("config-loader", (): void => {
       tsConfigLoader: (_: any) => ({
         tsConfigPath: "/baz/tsconfig.json",
         baseUrl: undefined,
-        paths: {}
-      })
+        paths: {},
+      }),
     });
 
     const failResult = result as ConfigLoaderFailResult;

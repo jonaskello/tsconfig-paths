@@ -33,7 +33,7 @@ export function getAbsoluteMappingEntries(
       pattern: key,
       paths: paths[key].map((pathToResolve) =>
         path.join(absoluteBaseUrl, pathToResolve)
-      )
+      ),
     });
   }
   // If there is no match-all path specified in the paths section of tsconfig, then try to match
@@ -41,7 +41,7 @@ export function getAbsoluteMappingEntries(
   if (!paths["*"] && addMatchAll) {
     absolutePaths.push({
       pattern: "*",
-      paths: [`${absoluteBaseUrl.replace(/\/$/, "")}/*`]
+      paths: [`${absoluteBaseUrl.replace(/\/$/, "")}/*`],
     });
   }
 

@@ -21,7 +21,7 @@ for (let i = 0; i < iterations; i++) {
   const result = matchPath("foo/mylib", undefined, undefined, [
     ".ts",
     ".tsx",
-    ".js"
+    ".js",
   ]);
 }
 console.timeEnd(`Matching path ${iterations} times`);

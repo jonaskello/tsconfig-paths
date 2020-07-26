@@ -2,7 +2,7 @@ import { assert } from "chai";
 import {
   loadTsconfig,
   tsConfigLoader,
-  walkForTsConfig
+  walkForTsConfig,
 } from "../src/tsconfig-loader";
 import { join } from "path";
 
@@ -15,9 +15,9 @@ describe("tsconfig-loader", () => {
         return {
           tsConfigPath: `${cwd}/tsconfig.json`,
           baseUrl: "./",
-          paths: {}
+          paths: {},
         };
-      }
+      },
     });
 
     assert.equal(result.tsConfigPath, "/foo/bar/tsconfig.json");
@@ -31,9 +31,9 @@ describe("tsconfig-loader", () => {
         return {
           tsConfigPath: undefined,
           baseUrl: "./",
-          paths: {}
+          paths: {},
         };
-      }
+      },
     });
 
     assert.isUndefined(result.tsConfigPath);
@@ -49,16 +49,16 @@ describe("tsconfig-loader", () => {
           return {
             tsConfigPath: "/foo/baz/tsconfig.json",
             baseUrl: "./",
-            paths: {}
+            paths: {},
           };
         }
 
         return {
           tsConfigPath: undefined,
           baseUrl: "./",
-          paths: {}
+          paths: {},
         };
-      }
+      },
     });
 
     assert.equal(result.tsConfigPath, "/foo/baz/tsconfig.json");
@@ -133,15 +133,15 @@ describe("loadConfig", () => {
   it("It should load a config with extends and overwrite all options", () => {
     const firstConfig = {
       extends: "../base-config.json",
-      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } }
+      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } },
     };
     const firstConfigPath = join("/root", "dir1", "tsconfig.json");
     const baseConfig = {
       compilerOptions: {
         baseUrl: "olle",
         paths: { foo: ["bar1"] },
-        strict: true
-      }
+        strict: true,
+      },
     };
     const baseConfigPath = join("/root", "base-config.json");
     const res = loadTsconfig(
@@ -163,8 +163,8 @@ describe("loadConfig", () => {
       compilerOptions: {
         baseUrl: "kalle",
         paths: { foo: ["bar2"] },
-        strict: true
-      }
+        strict: true,
+      },
     });
   });
 
@@ -197,7 +197,7 @@ describe("loadConfig", () => {
 
     assert.deepEqual(res, {
       extends: "../second-config.json",
-      compilerOptions: { baseUrl: join("..", "..") }
+      compilerOptions: { baseUrl: join("..", "..") },
     });
   });
 });

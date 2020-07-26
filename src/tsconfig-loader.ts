@@ -32,7 +32,7 @@ export interface TsConfigLoaderParams {
 export function tsConfigLoader({
   getEnv,
   cwd,
-  loadSync = loadSyncDefault
+  loadSync = loadSyncDefault,
 }: TsConfigLoaderParams): TsConfigLoaderResult {
   const TS_NODE_PROJECT = getEnv("TS_NODE_PROJECT");
 
@@ -50,7 +50,7 @@ function loadSyncDefault(cwd: string, filename?: string): TsConfigLoaderResult {
     return {
       tsConfigPath: undefined,
       baseUrl: undefined,
-      paths: undefined
+      paths: undefined,
     };
   }
   const config = loadTsconfig(configPath);
@@ -58,7 +58,7 @@ function loadSyncDefault(cwd: string, filename?: string): TsConfigLoaderResult {
   return {
     tsConfigPath: configPath,
     baseUrl: config && config.compilerOptions && config.compilerOptions.baseUrl,
-    paths: config && config.compilerOptions && config.compilerOptions.paths
+    paths: config && config.compilerOptions && config.compilerOptions.paths,
   };
 }
 
@@ -144,8 +144,8 @@ export function loadTsconfig(
       ...config,
       compilerOptions: {
         ...base.compilerOptions,
-        ...config.compilerOptions
-      }
+        ...config.compilerOptions,
+      },
     };
   }
   return config;

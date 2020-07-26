@@ -3,8 +3,8 @@ import * as minimist from "minimist";
 const argv = minimist(process.argv.slice(2), {
   string: ["project"],
   alias: {
-    project: ["P"]
-  }
+    project: ["P"],
+  },
 });
 
 const project = argv && argv.project;
@@ -14,5 +14,5 @@ export interface Options {
 }
 
 export const options: Options = {
-  cwd: project || process.cwd()
+  cwd: project || process.cwd(),
 };

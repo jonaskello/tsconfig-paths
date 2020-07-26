@@ -6,10 +6,10 @@ describe("mapping-entry", () => {
   const abosolutePathMappings = [
     {
       pattern: "longest/pre/fix/*",
-      paths: [join("/absolute", "base", "url", "foo2", "bar")]
+      paths: [join("/absolute", "base", "url", "foo2", "bar")],
     },
     { pattern: "pre/fix/*", paths: [join("/absolute", "base", "url", "foo3")] },
-    { pattern: "*", paths: [join("/absolute", "base", "url", "foo1")] }
+    { pattern: "*", paths: [join("/absolute", "base", "url", "foo1")] },
   ];
   it("should return no paths for relative requested module", () => {
     const result = getPathsToTry(
@@ -26,12 +26,12 @@ describe("mapping-entry", () => {
       [
         {
           pattern: "longest/pre/fix/*",
-          paths: [join("/absolute", "base", "url", "foo2", "bar")]
+          paths: [join("/absolute", "base", "url", "foo2", "bar")],
         },
         {
           pattern: "pre/fix/*",
-          paths: [join("/absolute", "base", "url", "foo3")]
-        }
+          paths: [join("/absolute", "base", "url", "foo3")],
+        },
       ],
       "requested-module"
     );
@@ -49,23 +49,23 @@ describe("mapping-entry", () => {
       { type: "file", path: join("/absolute", "base", "url", "foo2", "bar") },
       {
         type: "extension",
-        path: join("/absolute", "base", "url", "foo2", "bar.ts")
+        path: join("/absolute", "base", "url", "foo2", "bar.ts"),
       },
       {
         type: "extension",
-        path: join("/absolute", "base", "url", "foo2", "bar.tsx")
+        path: join("/absolute", "base", "url", "foo2", "bar.tsx"),
       },
       {
         type: "package",
-        path: join("/absolute", "base", "url", "foo2", "bar", "package.json")
+        path: join("/absolute", "base", "url", "foo2", "bar", "package.json"),
       },
       {
         type: "index",
-        path: join("/absolute", "base", "url", "foo2", "bar", "index.ts")
+        path: join("/absolute", "base", "url", "foo2", "bar", "index.ts"),
       },
       {
         type: "index",
-        path: join("/absolute", "base", "url", "foo2", "bar", "index.tsx")
+        path: join("/absolute", "base", "url", "foo2", "bar", "index.tsx"),
       },
       // "*"
       { type: "file", path: join("/absolute", "base", "url", "foo1") },
@@ -73,16 +73,16 @@ describe("mapping-entry", () => {
       { type: "extension", path: join("/absolute", "base", "url", "foo1.tsx") },
       {
         type: "package",
-        path: join("/absolute", "base", "url", "foo1", "package.json")
+        path: join("/absolute", "base", "url", "foo1", "package.json"),
       },
       {
         type: "index",
-        path: join("/absolute", "base", "url", "foo1", "index.ts")
+        path: join("/absolute", "base", "url", "foo1", "index.ts"),
       },
       {
         type: "index",
-        path: join("/absolute", "base", "url", "foo1", "index.tsx")
-      }
+        path: join("/absolute", "base", "url", "foo1", "index.tsx"),
+      },
     ]);
   });
 });

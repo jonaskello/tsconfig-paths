@@ -45,7 +45,7 @@ export function loadConfig(cwd: string = options.cwd): ConfigLoaderResult {
 export function configLoader({
   cwd,
   explicitParams,
-  tsConfigLoader = TsConfigLoader.tsConfigLoader
+  tsConfigLoader = TsConfigLoader.tsConfigLoader,
 }: ConfigLoaderParams): ConfigLoaderResult {
   if (explicitParams) {
     // tslint:disable-next-line:no-shadowed-variable
@@ -60,27 +60,27 @@ export function configLoader({
       absoluteBaseUrl,
       paths: explicitParams.paths,
       mainFields: explicitParams.mainFields,
-      addMatchAll: explicitParams.addMatchAll
+      addMatchAll: explicitParams.addMatchAll,
     };
   }
 
   // Load tsconfig and create path matching function
   const loadResult = tsConfigLoader({
     cwd,
-    getEnv: (key: string) => process.env[key]
+    getEnv: (key: string) => process.env[key],
   });
 
   if (!loadResult.tsConfigPath) {
     return {
       resultType: "failed",
-      message: "Couldn't find tsconfig.json"
+      message: "Couldn't find tsconfig.json",
     };
   }
 
   if (!loadResult.baseUrl) {
     return {
       resultType: "failed",
-      message: "Missing baseUrl in compilerOptions"
+      message: "Missing baseUrl in compilerOptions",
     };
   }
 
@@ -92,6 +92,6 @@ export function configLoader({
     configFileAbsolutePath: loadResult.tsConfigPath,
     baseUrl: loadResult.baseUrl,
     absoluteBaseUrl,
-    paths: loadResult.paths || {}
+    paths: loadResult.paths || {},
   };
 }

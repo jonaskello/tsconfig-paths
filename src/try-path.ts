@@ -46,7 +46,7 @@ export function getPathsToTry(
         );
         pathsToTry.push({
           type: "package",
-          path: path.join(physicalPath, "/package.json")
+          path: path.join(physicalPath, "/package.json"),
         });
         const indexPath = path.join(physicalPath, "/index");
         pathsToTry.push(

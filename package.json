@@ -72,8 +72,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "prettier": {
-    "trailingComma": "none"
   }
 }

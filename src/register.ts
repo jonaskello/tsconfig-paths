@@ -34,7 +34,7 @@ function getCoreModules(
     "util",
     "v8",
     "vm",
-    "zlib"
+    "zlib",
   ];
 
   const coreModules: { [key: string]: boolean } = {};
@@ -52,7 +52,7 @@ function getCoreModules(
 export function register(explicitParams: ExplicitParams): () => void {
   const configLoaderResult = configLoader({
     cwd: options.cwd,
-    explicitParams
+    explicitParams,
   });
 
   if (configLoaderResult.resultType === "failed") {
