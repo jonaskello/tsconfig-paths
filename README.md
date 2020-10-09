@@ -207,7 +207,7 @@ export function createMatchPath(
 ): MatchPath {
 ```
 
-The `createMatchPath` function will create a function that can match paths. It accepts `baseUrl` and `paths` directly as they are specified in tsconfig and will handle resolving paths to absolute form. The created function has the signare specified by the type `MatchPath` above.
+The `createMatchPath` function will create a function that can match paths. It accepts `baseUrl` and `paths` directly as they are specified in tsconfig and will handle resolving paths to absolute form. The created function has the signature specified by the type `MatchPath` above.
 
 ### matchFromAbsolutePaths
 
