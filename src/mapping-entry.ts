@@ -25,7 +25,7 @@ export function getAbsoluteMappingEntries(
 ): ReadonlyArray<MappingEntry> {
   // Resolve all paths to absolute form once here, and sort them by
   // longest prefix once here, this saves time on each request later.
-  // We need to put them in an array to preseve the sorting order.
+  // We need to put them in an array to preserve the sorting order.
   const sortedKeys = sortByLongestPrefix(Object.keys(paths));
   const absolutePaths: Array<MappingEntry> = [];
   for (const key of sortedKeys) {
