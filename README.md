@@ -10,7 +10,7 @@ Use this to load modules whose location is specified in the `paths` section of `
 
 Typescript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/module-resolution.html) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The typescript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to execute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
 
-If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` and convert node's module loading calls into to physcial file paths that node can load.
+If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` and convert node's module loading calls into to physical file paths that node can load.
 
 ## How to install
 
@@ -217,7 +217,7 @@ The `createMatchPath` function will create a function that can match paths. It a
  * @param absolutePathMappings The paths to try as specified in tsconfig but resolved to absolute form.
  * @param requestedModule The required module name.
  * @param readJson Function that can read json from a path (useful for testing).
- * @param fileExists Function that checks for existance of a file at a path (useful for testing).
+ * @param fileExists Function that checks for existence of a file at a path (useful for testing).
  * @param extensions File extensions to probe for (useful for testing).
  * @param mainFields A list of package.json field names to try when resolving module files.
  * @returns the found path, or undefined if no path was found.
@@ -232,7 +232,7 @@ export function matchFromAbsolutePaths(
 ): string | undefined {
 ```
 
-This function is lower level and requries that the paths as already been resolved to absolute form and sorted in correct order into an array.
+This function is lower level and requires that the paths as already been resolved to absolute form and sorted in correct order into an array.
 
 ### createMatchPathAsync
 
