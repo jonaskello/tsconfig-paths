@@ -131,7 +131,7 @@ export function loadTsconfig(
 
     // baseUrl should be interpreted as relative to the base tsconfig,
     // but we need to update it so it is relative to the original tsconfig being loaded
-    if (base && base.compilerOptions && base.compilerOptions.baseUrl) {
+    if (base.compilerOptions && base.compilerOptions.baseUrl) {
       const extendsDir = path.dirname(extendedConfig);
       base.compilerOptions.baseUrl = path.join(
         extendsDir,
