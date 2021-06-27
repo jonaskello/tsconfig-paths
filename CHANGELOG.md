@@ -59,7 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Adding json file extention to extends property, [#40](https://github.com/dividab/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
+- Adding json file extension to extends property, [#40](https://github.com/dividab/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
 
 ## [3.3.1] - 2018-04-17
 
