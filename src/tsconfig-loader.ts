@@ -120,14 +120,22 @@ export function loadTsconfig(
     ) {
       extendedConfig += ".json";
     }
-
     const currentDir = path.dirname(configFilePath);
+    let extendedConfigPath = path.join(currentDir, extendedConfig);
+    if (
+      extendedConfig.indexOf("/") !== -1 &&
+      extendedConfig.indexOf(".") !== -1 &&
+      !existsSync(extendedConfigPath)
+    ) {
+      extendedConfigPath = path.join(
+        currentDir,
+        "node_modules",
+        extendedConfig
+      );
+    }
+
     const base =
-      loadTsconfig(
-        path.join(currentDir, extendedConfig),
-        existsSync,
-        readFileSync
-      ) || {};
+      loadTsconfig(extendedConfigPath, existsSync, readFileSync) || {};
 
     // baseUrl should be interpreted as relative to the base tsconfig,
     // but we need to update it so it is relative to the original tsconfig being loaded
