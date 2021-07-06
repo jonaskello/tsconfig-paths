@@ -10,6 +10,7 @@
   "files": [
     "/src",
     "/lib",
+    "register.js",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
