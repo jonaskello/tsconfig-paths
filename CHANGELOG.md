@@ -7,13 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.10.1] - 2021-07-06
+
+### Fixed
+
+- Add register.js to published files
+
 ## [3.10.0] - 2021-07-06
 
 ### Added
 
 - feat(tsconfig-loader): extends config from node_modules (#106). Thanks to @zorji for this PR!
 
-### Fixeds
+### Fixed
 
 - Update CHANGELOG.md (#96). Thanks to @OliverJAsh for this PR!
 - Fix "bootstraping" typo (#111). Thanks to @KRMisha for this PR!
