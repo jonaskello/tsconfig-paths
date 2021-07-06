@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Update CHANGELOG.md (#96). Thanks to @OliverJAsh for this PR!
+- Fix "bootstraping" typo (#111). Thanks to @KRMisha for this PR!
+- Update Readme fixes #116 (#123). Thanks to @benwinding for this PR!
+- Fixed typo (#144). Thanks to @mprinc for this PR!
+- [TYPO] src/mapping-entry.ts (#145). Thanks to @mprinc for this PR!
+- docs(README): fix typos (#156). Thanks to @PiDelport for this PR!
+- deps: bump json5 to use type definition provided officially (#158). Thanks to @koba04 for this PR!
+- Update tsconfig-loader.ts (#161). Thanks to @fecqs for this PR!
+- fix typo (#165). Thanks to @wonda-tea-coffee for this PR!
+- feat(tsconfig-loader): extends config from node_modules (#106). Thanks to @zorji for this PR!
+- Add file extenstion to typings property value (#151). Thanks to @dangrussell for this PR!
+
 ## [3.9.0] - 2019-09-12
 
 ### Added
