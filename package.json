@@ -37,7 +37,8 @@
     "typescript": "^2.4.1"
   },
   "dependencies": {
-    "json5": "^2.2.0",
+    "@types/json5": "^0.0.29",
+    "json5": "^1.0.1",
     "minimist": "^1.2.0",
     "strip-bom": "^3.0.0"
   },
