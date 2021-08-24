@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.11.0] - 2021-08-24
+
+- Reverted upgrade of json5 due to being a breaking change. See PR #173.
+
 ## [3.10.1] - 2021-07-06
 
 ### Fixed
