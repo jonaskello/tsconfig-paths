@@ -87,6 +87,8 @@ The following is an example configuration for the `.vscode/launch.json`.
 
 If you want more granular control over tsconfig-paths you can bootstrap it. This can be useful if you for instance have compiled with `tsc` to another directory where `tsconfig.json` doesn't exists.
 
+For example, create a wrapper script called `tsconfig-paths-bootstrap.js` with the contents below:
+
 ```javascript
 const tsConfig = require("./tsconfig.json");
 const tsConfigPaths = require("tsconfig-paths");
