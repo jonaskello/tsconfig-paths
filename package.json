@@ -27,7 +27,6 @@
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "rimraf": "^2.6.2",
-    "shelljs": "^0.7.5",
     "ts-jest": "^27.0.7",
     "ts-node": "^7.0.0",
     "tslint": "^5.8.0",
@@ -50,9 +49,6 @@
     "build": "rimraf lib && tsc -p .",
     "lint": "tslint './{src,tests}/**/*.ts{,x}'",
     "verify": "yarn build && yarn lint && yarn test-coverage",
-    "publish:major": "yarn build && node scripts/publish.js major",
-    "publish:minor": "yarn build && node scripts/publish.js minor",
-    "publish:patch": "yarn build && node scripts/publish.js patch",
     "preversion": "yarn verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
