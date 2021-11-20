@@ -1,0 +1,32 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    name: "Build - Node: ${{ matrix.node_version }} - OS: ${{ matrix.os }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - "ubuntu-latest"
+        node_version:
+          - "10"
+          - "lts/*"
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: verify
+        run: yarn verify
+
+      - name: Report coverage
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/lcov.info
