@@ -30,6 +30,10 @@ npm install --save-dev tsconfig-paths
 
 `node -r tsconfig-paths/register main.js`
 
+If `process.env.TS_NODE_BASEURL` is set it will override the value of `baseUrl` in tsconfig.json:
+
+`TS_NODE_BASEURL=./dist node -r tsconfig-paths/register main.js`
+
 ### With ts-node
 
 `ts-node -r tsconfig-paths/register main.ts`

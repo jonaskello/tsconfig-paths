@@ -63,6 +63,41 @@ describe("tsconfig-loader", () => {
 
     assert.equal(result.tsConfigPath, "/foo/baz/tsconfig.json");
   });
+
+  it("should use TS_NODE_BASEURL env if exists", () => {
+    const result = tsConfigLoader({
+      cwd: "/foo/bar",
+      getEnv: (key: string) =>
+        key === "TS_NODE_BASEURL" ? "SOME_BASEURL" : undefined,
+      loadSync: (_0: string, _1: string, baseUrl: string) => {
+        return {
+          tsConfigPath: undefined,
+          baseUrl,
+          paths: {},
+        };
+      },
+    });
+
+    assert.equal(result.baseUrl, "SOME_BASEURL");
+  });
+
+  it("should not use TS_NODE_BASEURL env if it does not exist", () => {
+    const result = tsConfigLoader({
+      cwd: "/foo/bar",
+      getEnv: (_: string) => {
+        return undefined;
+      },
+      loadSync: (_0: string, _1: string, baseUrl: string) => {
+        return {
+          tsConfigPath: undefined,
+          baseUrl,
+          paths: {},
+        };
+      },
+    });
+
+    assert.equal(result.baseUrl, undefined);
+  });
 });
 
 describe("walkForTsConfig", () => {
@@ -171,15 +206,15 @@ describe("loadConfig", () => {
   it("It should load a config with extends from node_modules and overwrite all options", () => {
     const firstConfig = {
       extends: "my-package/base-config.json",
-      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } }
+      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } },
     };
     const firstConfigPath = join("/root", "dir1", "tsconfig.json");
     const baseConfig = {
       compilerOptions: {
         baseUrl: "olle",
         paths: { foo: ["bar1"] },
-        strict: true
-      }
+        strict: true,
+      },
     };
     const baseConfigPath = join(
       "/root",
@@ -190,8 +225,8 @@ describe("loadConfig", () => {
     );
     const res = loadTsconfig(
       join("/root", "dir1", "tsconfig.json"),
-      path => path === firstConfigPath || path === baseConfigPath,
-      path => {
+      (path) => path === firstConfigPath || path === baseConfigPath,
+      (path) => {
         if (path === firstConfigPath) {
           return JSON.stringify(firstConfig);
         }
@@ -207,8 +242,8 @@ describe("loadConfig", () => {
       compilerOptions: {
         baseUrl: "kalle",
         paths: { foo: ["bar2"] },
-        strict: true
-      }
+        strict: true,
+      },
     });
   });
 
