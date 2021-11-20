@@ -1,5 +1,4 @@
-import { assert } from "chai";
-import { getAbsoluteMappingEntries } from "../src/mapping-entry";
+import { getAbsoluteMappingEntries } from "../mapping-entry";
 import { join } from "path";
 
 describe("mapping-entry", () => {
@@ -13,7 +12,24 @@ describe("mapping-entry", () => {
       },
       true
     );
-    assert.deepEqual(result, [
+    // assert.deepEqual(result, [
+    //   {
+    //     pattern: "longest/pre/fix/*",
+    //     paths: [join("/absolute", "base", "url", "foo2", "bar")],
+    //   },
+    //   {
+    //     pattern: "pre/fix/*",
+    //     paths: [join("/absolute", "base", "url", "foo3")],
+    //   },
+    //   {
+    //     pattern: "*",
+    //     paths: [
+    //       join("/absolute", "base", "url", "foo1"),
+    //       join("/absolute", "base", "url", "foo2"),
+    //     ],
+    //   },
+    // ]);
+    expect(result).toEqual([
       {
         pattern: "longest/pre/fix/*",
         paths: [join("/absolute", "base", "url", "foo2", "bar")],
@@ -34,7 +50,13 @@ describe("mapping-entry", () => {
 
   it("should should add a match-all pattern when requested", () => {
     let result = getAbsoluteMappingEntries("/absolute/base/url", {}, true);
-    assert.deepEqual(result, [
+    // assert.deepEqual(result, [
+    //   {
+    //     pattern: "*",
+    //     paths: [join("/absolute", "base", "url", "*")],
+    //   },
+    // ]);
+    expect(result).toEqual([
       {
         pattern: "*",
         paths: [join("/absolute", "base", "url", "*")],
@@ -42,6 +64,7 @@ describe("mapping-entry", () => {
     ]);
 
     result = getAbsoluteMappingEntries("/absolute/base/url", {}, false);
-    assert.deepEqual(result, []);
+    // assert.deepEqual(result, []);
+    expect(result).toEqual([]);
   });
 });

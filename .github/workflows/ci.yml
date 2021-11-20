@@ -29,4 +29,4 @@ jobs:
       - name: Report coverage
         uses: codecov/codecov-action@v1
         with:
-          file: coverage/coverage-final.json
+          file: coverage/lcov.info

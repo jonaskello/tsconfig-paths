@@ -1,0 +1,3 @@
+__tests__/
+__stories__/
+*.test.{js,ts,tsx}

@@ -1,5 +1,4 @@
-import { assert } from "chai";
-import { getPathsToTry } from "../src/try-path";
+import { getPathsToTry } from "../try-path";
 import { join } from "path";
 
 describe("mapping-entry", () => {
@@ -17,7 +16,8 @@ describe("mapping-entry", () => {
       abosolutePathMappings,
       "./requested-module"
     );
-    assert.deepEqual(result, undefined);
+    // assert.deepEqual(result, undefined);
+    expect(result).toBeUndefined();
   });
 
   it("should return no paths if no pattern match the requested module", () => {
@@ -35,7 +35,7 @@ describe("mapping-entry", () => {
       ],
       "requested-module"
     );
-    assert.deepEqual(result, undefined);
+    expect(result).toBeUndefined();
   });
 
   it("should get all paths that matches requested module", () => {
@@ -44,7 +44,47 @@ describe("mapping-entry", () => {
       abosolutePathMappings,
       "longest/pre/fix/requested-module"
     );
-    assert.deepEqual(result, [
+    // assert.deepEqual(result, [
+    //   // "longest/pre/fix/*"
+    //   { type: "file", path: join("/absolute", "base", "url", "foo2", "bar") },
+    //   {
+    //     type: "extension",
+    //     path: join("/absolute", "base", "url", "foo2", "bar.ts"),
+    //   },
+    //   {
+    //     type: "extension",
+    //     path: join("/absolute", "base", "url", "foo2", "bar.tsx"),
+    //   },
+    //   {
+    //     type: "package",
+    //     path: join("/absolute", "base", "url", "foo2", "bar", "package.json"),
+    //   },
+    //   {
+    //     type: "index",
+    //     path: join("/absolute", "base", "url", "foo2", "bar", "index.ts"),
+    //   },
+    //   {
+    //     type: "index",
+    //     path: join("/absolute", "base", "url", "foo2", "bar", "index.tsx"),
+    //   },
+    //   // "*"
+    //   { type: "file", path: join("/absolute", "base", "url", "foo1") },
+    //   { type: "extension", path: join("/absolute", "base", "url", "foo1.ts") },
+    //   { type: "extension", path: join("/absolute", "base", "url", "foo1.tsx") },
+    //   {
+    //     type: "package",
+    //     path: join("/absolute", "base", "url", "foo1", "package.json"),
+    //   },
+    //   {
+    //     type: "index",
+    //     path: join("/absolute", "base", "url", "foo1", "index.ts"),
+    //   },
+    //   {
+    //     type: "index",
+    //     path: join("/absolute", "base", "url", "foo1", "index.tsx"),
+    //   },
+    // ]);
+    expect(result).toEqual([
       // "longest/pre/fix/*"
       { type: "file", path: join("/absolute", "base", "url", "foo2", "bar") },
       {
