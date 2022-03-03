@@ -108,9 +108,7 @@ export const tests: ReadonlyArray<OneTest> = [
     existingFiles: [join("/root", "location", "mylib", "kalle.ts")],
     packageJson: { main: "./kalle.ts" },
     requestedModule: "lib/mylib",
-    expectedPath: removeExtension(
-      join("/root", "location", "mylib", "kalle.ts")
-    ),
+    expectedPath: join("/root", "location", "mylib", "kalle.ts"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
@@ -121,22 +119,7 @@ export const tests: ReadonlyArray<OneTest> = [
     packageJson: { main: "./kalle.js" },
     requestedModule: "lib/mylib.js",
     extensions: [".ts", ".js"],
-    expectedPath: removeExtension(
-      join("/root", "location", "mylib.js", "kalle.js")
-    ),
-  },
-  {
-    name:
-      "should resolve from main field in package.json and correctly remove file extension",
-    absoluteBaseUrl: "/root/",
-    paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "mylibjs", "kalle.js")],
-    packageJson: { main: "./kalle.js" },
-    extensions: [".ts", ".js"],
-    requestedModule: "lib/mylibjs",
-    expectedPath: removeExtension(
-      join("/root", "location", "mylibjs", "kalle.js")
-    ),
+    expectedPath: join("/root", "location", "mylib.js", "kalle.js"),
   },
   {
     name: "should resolve from list of fields by priority in package.json",
@@ -150,9 +133,7 @@ export const tests: ReadonlyArray<OneTest> = [
     ],
     extensions: [".ts", ".js"],
     requestedModule: "lib/mylibjs",
-    expectedPath: removeExtension(
-      join("/root", "location", "mylibjs", "browser.js")
-    ),
+    expectedPath: join("/root", "location", "mylibjs", "browser.js"),
   },
   {
     name: "should ignore field mappings to missing files in package.json",
@@ -166,9 +147,7 @@ export const tests: ReadonlyArray<OneTest> = [
       browser: "./nope.js",
     },
     extensions: [".ts", ".js"],
-    expectedPath: removeExtension(
-      join("/root", "location", "mylibjs", "kalle.js")
-    ),
+    expectedPath: join("/root", "location", "mylibjs", "kalle.js"),
   },
   {
     name: "should ignore advanced field mappings in package.json",
@@ -184,9 +163,7 @@ export const tests: ReadonlyArray<OneTest> = [
       browser: { mylibjs: "./browser.js", "./kalle.js": "./browser.js" },
     },
     extensions: [".ts", ".js"],
-    expectedPath: removeExtension(
-      join("/root", "location", "mylibjs", "kalle.js")
-    ),
+    expectedPath: join("/root", "location", "mylibjs", "kalle.js"),
   },
   {
     name: "should resolve to with the help of baseUrl when not explicitly set",
@@ -226,5 +203,16 @@ export const tests: ReadonlyArray<OneTest> = [
     requestedModule: "lib/mylib",
     expectedPath: undefined,
     extensions: defaultExtensionsWhenRunningInTsNode,
+  },
+  {
+    name: "should resolve main file with cjs file extension",
+    absoluteBaseUrl: "/root/",
+    paths: {},
+    existingFiles: [join("/root", "mylib", "index.cjs")],
+    packageJson: {
+      main: "./index.cjs",
+    },
+    requestedModule: "mylib",
+    expectedPath: join("/root", "mylib", "index.cjs"),
   },
 ];

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Include file extension in paths resolved from package.json "main" field. See PR [#135](https://github.com/dividab/tsconfig-paths/pull/135) and issue [#133](https://github.com/dividab/tsconfig-paths/issues/133).  Thanks to [@katywings](https://github.com/katywings) for this fix!
+
 ## [3.12.0] - 2021-08-24
 
 - Add support for baseUrl override using TS_NODE_BASEURL env var #185 and #114. Thanks to @ejhayes and @information-security for these PRs!
