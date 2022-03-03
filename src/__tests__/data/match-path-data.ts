@@ -214,5 +214,6 @@ export const tests: ReadonlyArray<OneTest> = [
     },
     requestedModule: "mylib",
     expectedPath: join("/root", "mylib", "index.cjs"),
+    extensions: defaultExtensionsWhenRunningInTsNode,
   },
 ];
