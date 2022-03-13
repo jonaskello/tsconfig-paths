@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.14.0] - 2022-03-13
+
+### Added
+
+- Support for path mapping starting with `/`. See PR [#180](https://github.com/dividab/tsconfig-paths/pull/180), issue [#113](https://github.com/dividab/tsconfig-paths/issues/113), and issue [#128](https://github.com/dividab/tsconfig-paths/issues/128). Thanks to [@benevbright](https://github.com/benevbright) for this fix!
+
 ## [3.13.0] - 2022-03-03
 
-### Fixed
+### Added
 
 - Include file extension in paths resolved from package.json "main" field. See PR [#135](https://github.com/dividab/tsconfig-paths/pull/135) and issue [#133](https://github.com/dividab/tsconfig-paths/issues/133). Thanks to [@katywings](https://github.com/katywings) for this fix!
 
