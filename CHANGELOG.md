@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.14.1] - 2022-03-22
+
+### Fixed
+
+- Use minimist 1.2.6 for all depencencies becuase of pollution vulnerability. See PR [#197](https://github.com/dividab/tsconfig-paths/pull/197). Thanks to [@gopijaganthan](https://github.com/gopijaganthan) for this fix!
+
 ## [3.14.0] - 2022-03-13
 
 ### Added
