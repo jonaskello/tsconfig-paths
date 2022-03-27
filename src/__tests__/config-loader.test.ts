@@ -49,7 +49,7 @@ describe("config-loader", (): void => {
     const result = configLoader({
       explicitParams: undefined,
       cwd: "/baz",
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tsConfigLoader: (_: any) => ({
         tsConfigPath: "/baz/tsconfig.json",
         baseUrl: "./src",
@@ -68,7 +68,7 @@ describe("config-loader", (): void => {
     const result = configLoader({
       explicitParams: undefined,
       cwd: "/baz",
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tsConfigLoader: (_: any) => ({
         tsConfigPath: "/baz/tsconfig.json",
         baseUrl: undefined,

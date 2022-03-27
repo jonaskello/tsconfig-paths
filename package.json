@@ -22,6 +22,12 @@
     "@types/node": "^6.0.54",
     "@types/strip-bom": "^3.0.0",
     "@types/strip-json-comments": "^0.0.30",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^38.0.7",
     "husky": "^4.2.5",
     "jest": "^27.3.1",
     "lint-staged": "^10.2.11",
@@ -29,7 +35,6 @@
     "rimraf": "^2.6.2",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.7.0",
-    "tslint": "^5.8.0",
     "typescript": "^4.5.2"
   },
   "dependencies": {
@@ -47,13 +52,13 @@
     "test": "jest",
     "test-coverage": "jest --coverage",
     "build": "rimraf lib && tsc -p .",
-    "lint": "tslint './{src,tests}/**/*.ts{,x}'",
+    "lint": "eslint \"./{src,tests}/**/*.ts{,x}\" --ext .js,.ts,.tsx -f visualstudio",
     "verify": "yarn build && yarn lint && yarn test-coverage",
     "preversion": "yarn verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "lint-staged": {
-    "*.{ts,tsx}": "tslint",
+    "*.{ts,tsx}": "eslint",
     "*.{ts,tsx,json,css}": [
       "prettier --write",
       "git add"

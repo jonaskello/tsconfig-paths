@@ -1,9 +1,9 @@
 import * as path from "path";
 import * as fs from "fs";
-// tslint:disable:no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import JSON5 = require("json5");
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import StripBom = require("strip-bom");
-// tslint:enable:no-require-imports
 
 /**
  * Typing for the parts of tsconfig that we care about
@@ -93,6 +93,7 @@ function resolveConfigPath(cwd: string, filename?: string): string | undefined {
 
 export function walkForTsConfig(
   directory: string,
+  // eslint-disable-next-line no-shadow
   existsSync: (path: string) => boolean = fs.existsSync
 ): string | undefined {
   const configPath = path.join(directory, "./tsconfig.json");
@@ -112,6 +113,7 @@ export function walkForTsConfig(
 
 export function loadTsconfig(
   configFilePath: string,
+  // eslint-disable-next-line no-shadow
   existsSync: (path: string) => boolean = fs.existsSync,
   readFileSync: (filename: string) => string = (filename: string) =>
     fs.readFileSync(filename, "utf8")

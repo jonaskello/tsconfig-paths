@@ -11,7 +11,7 @@ export interface PackageJson {
  * A function that json from a file
  */
 export interface ReadJsonSync {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (packageJsonPath: string): any | undefined;
 }
 
@@ -24,7 +24,7 @@ export interface FileExistsAsync {
 }
 
 export interface ReadJsonAsyncCallback {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (err?: Error, content?: any): void;
 }
 
@@ -44,19 +44,21 @@ export function fileExistsSync(path: string): boolean {
 
 /**
  * Reads package.json from disk
+ *
  * @param file Path to package.json
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function readJsonFromDiskSync(packageJsonPath: string): any | undefined {
   if (!fs.existsSync(packageJsonPath)) {
     return undefined;
   }
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   return require(packageJsonPath);
 }
 
 export function readJsonFromDiskAsync(
   path: string,
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callback: (err?: Error, content?: any) => void
 ): void {
   fs.readFile(path, "utf8", (err, result) => {

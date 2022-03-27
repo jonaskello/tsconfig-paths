@@ -17,6 +17,7 @@ export interface MatchPathAsync {
 }
 
 export interface MatchPathAsyncCallback {
+  // eslint-disable-next-line no-shadow
   (err?: Error, path?: string): void;
 }
 
@@ -97,7 +98,7 @@ function findFirstExistingMainFieldMappedFile(
     return doneCallback(undefined, undefined);
   }
 
-  const tryNext = () =>
+  const tryNext = (): void =>
     findFirstExistingMainFieldMappedFile(
       packageJson,
       mainFields,
