@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
+
 ## [3.14.1] - 2022-03-22
 
 ### Fixed

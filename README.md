@@ -6,11 +6,11 @@
 [![MIT license][license-image]][license-url]
 [![code style: prettier][prettier-image]][prettier-url]
 
-Use this to load modules whose location is specified in the `paths` section of `tsconfig.json`. Both loading at run-time and via API are supported.
+Use this to load modules whose location is specified in the `paths` section of `tsconfig.json` or `jsconfig.json`. Both loading at run-time and via API are supported.
 
 Typescript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/module-resolution.html) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The typescript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to execute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
 
-If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` and convert node's module loading calls into to physical file paths that node can load.
+If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` or `jsconfig.json` and convert node's module loading calls into to physical file paths that node can load.
 
 ## How to install
 
@@ -156,7 +156,7 @@ export interface ExplicitParams {
 export function register(explicitParams: ExplicitParams): () => void;
 ```
 
-This function will patch the node's module loading so it will look for modules in paths specified by tsconfig.json.
+This function will patch the node's module loading so it will look for modules in paths specified by `tsconfig.json` or `jsconfig.json`.
 A function is returned for you to reinstate Node's original module loading.
 
 ### loadConfig
@@ -180,7 +180,7 @@ export interface ConfigLoaderFailResult {
 }
 ```
 
-This function loads the tsconfig.json. It will start searching from the specified `cwd` directory. Passing the tsconfig.json file directly instead of a directory also works.
+This function loads the `tsconfig.json` or `jsconfig.json`. It will start searching from the specified `cwd` directory. Passing the `tsconfig.json` or `jsconfig.json` file directly instead of a directory also works.
 
 ### createMatchPath
 

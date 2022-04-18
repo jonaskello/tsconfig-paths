@@ -90,25 +90,26 @@ function resolveConfigPath(cwd: string, filename?: string): string | undefined {
   const configAbsolutePath = walkForTsConfig(cwd);
   return configAbsolutePath ? path.resolve(configAbsolutePath) : undefined;
 }
-
 export function walkForTsConfig(
   directory: string,
-  // eslint-disable-next-line no-shadow
-  existsSync: (path: string) => boolean = fs.existsSync
+  readdirSync: (path: string) => string[] = fs.readdirSync
 ): string | undefined {
-  const configPath = path.join(directory, "./tsconfig.json");
-  if (existsSync(configPath)) {
-    return configPath;
+  const files = readdirSync(directory);
+  const filesToCheck = ["tsconfig.json", "jsconfig.json"];
+  for (const fileToCheck of filesToCheck) {
+    if (files.indexOf(fileToCheck) !== -1) {
+      return path.join(directory, fileToCheck);
+    }
   }
 
-  const parentDirectory = path.join(directory, "../");
+  const parentDirectory = path.dirname(directory);
 
   // If we reached the top
   if (directory === parentDirectory) {
     return undefined;
   }
 
-  return walkForTsConfig(parentDirectory, existsSync);
+  return walkForTsConfig(parentDirectory, readdirSync);
 }
 
 export function loadTsconfig(

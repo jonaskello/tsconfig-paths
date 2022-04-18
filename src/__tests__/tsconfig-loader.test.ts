@@ -107,27 +107,67 @@ describe("tsconfig-loader", () => {
 describe("walkForTsConfig", () => {
   it("should find tsconfig in starting directory", () => {
     const pathToTsconfig = join("/root", "dir1", "tsconfig.json");
+    const mockFiles: Record<string, string[]> = {
+      "/root/dir1": ["tsconfig.json"],
+    };
     const res = walkForTsConfig(
       join("/root", "dir1"),
-      (path) => path === pathToTsconfig
+      (path) => mockFiles[path] || []
     );
-    // assert.equal(res, pathToTsconfig);
+    expect(res).toBe(pathToTsconfig);
+  });
+
+  it("should find jsconfig in starting directory", () => {
+    const pathToJsconfig = join("/root", "dir1", "jsconfig.json");
+    const mockFiles: Record<string, string[]> = {
+      "/root/dir1": ["jsconfig.json"],
+    };
+    const res = walkForTsConfig(
+      join("/root", "dir1"),
+      (path) => mockFiles[path] || []
+    );
+    expect(res).toBe(pathToJsconfig);
+  });
+
+  // see https://github.com/Microsoft/TypeScript/issues/15869#issuecomment-301845650
+  it("tsconfig.json take precedence over jsconfig.json when both exist", () => {
+    const pathToTsconfig = join("/root/dir1", "tsconfig.json");
+    const mockFiles: Record<string, string[]> = {
+      "/root/dir1": ["jsconfig.json", "tsconfig.json"],
+    };
+    const res = walkForTsConfig(
+      join("/root", "dir1"),
+      (path) => mockFiles[path] || []
+    );
     expect(res).toBe(pathToTsconfig);
   });
 
   it("should find tsconfig in parent directory", () => {
     const pathToTsconfig = join("/root", "tsconfig.json");
+    const mockFiles: Record<string, string[]> = {
+      "/root": ["tsconfig.json"],
+    };
     const res = walkForTsConfig(
       join("/root", "dir1"),
-      (path) => path === pathToTsconfig
+      (path) => mockFiles[path] || []
     );
-    // assert.equal(res, pathToTsconfig);
+    expect(res).toBe(pathToTsconfig);
+  });
+
+  it("should find jsconfig in parent directory", () => {
+    const pathToTsconfig = join("/root", "jsconfig.json");
+    const mockFiles: Record<string, string[]> = {
+      "/root": ["jsconfig.json"],
+    };
+    const res = walkForTsConfig(
+      join("/root", "dir1"),
+      (path) => mockFiles[path] || []
+    );
     expect(res).toBe(pathToTsconfig);
   });
 
   it("should return undefined when reaching the top", () => {
-    const res = walkForTsConfig(join("/root", "dir1", "kalle"), () => false);
-    // assert.equal(res, undefined);
+    const res = walkForTsConfig(join("/root", "dir1", "kalle"), () => []);
     expect(res).toBeUndefined();
   });
 });
