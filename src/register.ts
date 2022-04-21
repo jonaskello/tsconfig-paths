@@ -45,14 +45,22 @@ function getCoreModules(
   return coreModules;
 }
 
+export interface RegisterParams extends ExplicitParams {
+  /**
+   * Defaults to `--project` CLI flag or `process.cwd()`
+   */
+  cwd?: string;
+}
+
 /**
  * Installs a custom module load function that can adhere to paths in tsconfig.
  * Returns a function to undo paths registration.
  */
-export function register(explicitParams: ExplicitParams): () => void {
+export function register(params?: RegisterParams): () => void {
   const configLoaderResult = configLoader({
-    cwd: options.cwd,
-    explicitParams,
+    cwd: params?.cwd ?? options.cwd,
+    explicitParams:
+      params && (params.baseUrl || params.paths) ? params : undefined,
   });
 
   if (configLoaderResult.resultType === "failed") {

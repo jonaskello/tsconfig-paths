@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
 
+### Added
+
+- Add `cwd` option to `register` function that overrides where the `tsconfig.json` search begins. See PR [#205](https://github.com/dividab/tsconfig-paths/pull/205).
+
 ## [3.14.1] - 2022-03-22
 
 ### Fixed

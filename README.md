@@ -148,6 +148,7 @@ export interface ExplicitParams {
   paths: { [key: string]: Array<string> };
   mainFields?: Array<string>;
   addMatchAll?: boolean;
+  cwd?: string;
 }
 
 /**
