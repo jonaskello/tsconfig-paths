@@ -33,7 +33,7 @@ export function getAbsoluteMappingEntries(
     absolutePaths.push({
       pattern: key,
       paths: paths[key].map((pathToResolve) =>
-        path.join(absoluteBaseUrl, pathToResolve)
+        path.resolve(absoluteBaseUrl, pathToResolve)
       ),
     });
   }
