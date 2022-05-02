@@ -16,7 +16,6 @@ describe("match-path-sync", () => {
         (name: string) => t.existingFiles.indexOf(name) !== -1,
         t.extensions
       );
-      // assert.equal(result, t.expectedPath);
       expect(result).toBe(t.expectedPath);
     })
   );

@@ -17,7 +17,6 @@ describe("match-path-async", () => {
           callback(undefined, t.existingFiles.indexOf(path) !== -1),
         t.extensions,
         (_err, result) => {
-          // assert.equal(result, t.expectedPath);
           expect(result).toBe(t.expectedPath);
           done();
         }

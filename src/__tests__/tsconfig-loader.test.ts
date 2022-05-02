@@ -19,7 +19,6 @@ describe("tsconfig-loader", () => {
       },
     });
 
-    // assert.equal(result.tsConfigPath, "/foo/bar/tsconfig.json");
     expect(result.tsConfigPath).toBe("/foo/bar/tsconfig.json");
   });
 
@@ -36,7 +35,6 @@ describe("tsconfig-loader", () => {
       },
     });
 
-    // assert.isUndefined(result.tsConfigPath);
     expect(result.tsConfigPath).toBeUndefined();
   });
 
@@ -62,7 +60,6 @@ describe("tsconfig-loader", () => {
       },
     });
 
-    // assert.equal(result.tsConfigPath, "/foo/baz/tsconfig.json");
     expect(result.tsConfigPath).toBe("/foo/baz/tsconfig.json");
   });
 
@@ -80,7 +77,6 @@ describe("tsconfig-loader", () => {
       },
     });
 
-    // assert.equal(result.baseUrl, "SOME_BASEURL");
     expect(result.baseUrl).toBe("SOME_BASEURL");
   });
 
@@ -99,7 +95,6 @@ describe("tsconfig-loader", () => {
       },
     });
 
-    // assert.equal(result.baseUrl, undefined);
     expect(result.baseUrl).toBeUndefined();
   });
 });
@@ -180,7 +175,6 @@ describe("loadConfig", () => {
       (path) => path === "/root/dir1/tsconfig.json",
       (_) => JSON.stringify(config)
     );
-    // assert.deepEqual(res, config);
     expect(res).toStrictEqual(config);
   });
 
@@ -196,7 +190,6 @@ describe("loadConfig", () => {
           }
         }`
     );
-    // assert.deepEqual(res, config);
     expect(res).toStrictEqual(config);
   });
 
@@ -211,7 +204,6 @@ describe("loadConfig", () => {
           },
         }`
     );
-    // assert.deepEqual(res, config);
     expect(res).toStrictEqual(config);
   });
 
@@ -243,14 +235,6 @@ describe("loadConfig", () => {
       }
     );
 
-    // assert.deepEqual(res, {
-    //   extends: "../base-config.json",
-    //   compilerOptions: {
-    //     baseUrl: "kalle",
-    //     paths: { foo: ["bar2"] },
-    //     strict: true,
-    //   },
-    // });
     expect(res).toEqual({
       extends: "../base-config.json",
       compilerOptions: {
@@ -295,14 +279,6 @@ describe("loadConfig", () => {
       }
     );
 
-    // assert.deepEqual(res, {
-    //   extends: "my-package/base-config.json",
-    //   compilerOptions: {
-    //     baseUrl: "kalle",
-    //     paths: { foo: ["bar2"] },
-    //     strict: true,
-    //   },
-    // });
     expect(res).toEqual({
       extends: "my-package/base-config.json",
       compilerOptions: {
@@ -340,10 +316,6 @@ describe("loadConfig", () => {
       }
     );
 
-    // assert.deepEqual(res, {
-    //   extends: "../second-config.json",
-    //   compilerOptions: { baseUrl: join("..", "..") },
-    // });
     expect(res).toEqual({
       extends: "../second-config.json",
       compilerOptions: { baseUrl: join("..", "..") },
