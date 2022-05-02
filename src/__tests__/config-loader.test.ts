@@ -97,4 +97,20 @@ describe("config-loader", (): void => {
     expect(successResult.resultType).toBe("success");
     expect(successResult.configFileAbsolutePath).toBe(configFile);
   });
+
+  it("should allow an absolute baseUrl in tsconfig.json", () => {
+    const result = configLoader({
+      explicitParams: undefined,
+      cwd: "/baz",
+      // tslint:disable-next-line:no-any
+      tsConfigLoader: (_: any) => ({
+        tsConfigPath: "/baz/tsconfig.json",
+        baseUrl: "/baz",
+        paths: {},
+      }),
+    });
+
+    const successResult = result as ConfigLoaderSuccessResult;
+    assert.equal(successResult.absoluteBaseUrl, "/baz");
+  });
 });

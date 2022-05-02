@@ -79,7 +79,7 @@ export function configLoader({
     resultType: "success",
     configFileAbsolutePath: loadResult.tsConfigPath,
     baseUrl: loadResult.baseUrl,
-    absoluteBaseUrl: path.join(
+    absoluteBaseUrl: path.resolve(
       path.dirname(loadResult.tsConfigPath),
       loadResult.baseUrl || ""
     ),
