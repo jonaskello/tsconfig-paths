@@ -21,7 +21,7 @@ export interface ConfigLoaderParams {
 export interface ConfigLoaderSuccessResult {
   resultType: "success";
   configFileAbsolutePath: string;
-  baseUrl: string;
+  baseUrl?: string;
   absoluteBaseUrl: string;
   paths: { [key: string]: Array<string> };
   mainFields?: Array<string>;
@@ -75,21 +75,15 @@ export function configLoader({
     };
   }
 
-  if (!loadResult.baseUrl) {
-    return {
-      resultType: "failed",
-      message: "Missing baseUrl in compilerOptions",
-    };
-  }
-
-  const tsConfigDir = path.dirname(loadResult.tsConfigPath);
-  const absoluteBaseUrl = path.join(tsConfigDir, loadResult.baseUrl);
-
   return {
     resultType: "success",
     configFileAbsolutePath: loadResult.tsConfigPath,
     baseUrl: loadResult.baseUrl,
-    absoluteBaseUrl,
+    absoluteBaseUrl: path.join(
+      path.dirname(loadResult.tsConfigPath),
+      loadResult.baseUrl || ""
+    ),
     paths: loadResult.paths || {},
+    addMatchAll: loadResult.baseUrl !== undefined,
   };
 }
