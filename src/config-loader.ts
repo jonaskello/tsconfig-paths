@@ -1,6 +1,5 @@
 import * as TsConfigLoader2 from "./tsconfig-loader";
 import * as path from "path";
-import { options } from "./options";
 
 export interface ExplicitParams {
   baseUrl: string;
@@ -38,8 +37,8 @@ export type ConfigLoaderResult =
   | ConfigLoaderSuccessResult
   | ConfigLoaderFailResult;
 
-export function loadConfig(cwd: string = options.cwd): ConfigLoaderResult {
-  return configLoader({ cwd: cwd });
+export function loadConfig(cwd: string = process.cwd()): ConfigLoaderResult {
+  return configLoader({ cwd });
 }
 
 export function configLoader({

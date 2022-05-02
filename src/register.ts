@@ -1,6 +1,5 @@
 import { createMatchPath } from "./match-path-sync";
 import { configLoader, ExplicitParams } from "./config-loader";
-import { options } from "./options";
 
 const noOp = (): void => void 0;
 
@@ -57,10 +56,29 @@ export interface RegisterParams extends ExplicitParams {
  * Returns a function to undo paths registration.
  */
 export function register(params?: RegisterParams): () => void {
+  let cwd: string | undefined;
+  let explicitParams: ExplicitParams | undefined;
+  if (params) {
+    cwd = params.cwd;
+    if (params.baseUrl || params.paths) {
+      explicitParams = params;
+    }
+  } else {
+    // eslint-disable-next-line
+    const minimist = require("minimist");
+    const argv = minimist(process.argv.slice(2), {
+      // eslint-disable-next-line id-denylist
+      string: ["project"],
+      alias: {
+        project: ["P"],
+      },
+    });
+    cwd = argv.project;
+  }
+
   const configLoaderResult = configLoader({
-    cwd: params?.cwd ?? options.cwd,
-    explicitParams:
-      params && (params.baseUrl || params.paths) ? params : undefined,
+    cwd: cwd ?? process.cwd(),
+    explicitParams,
   });
 
   if (configLoaderResult.resultType === "failed") {

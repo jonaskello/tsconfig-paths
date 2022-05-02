@@ -6,9 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-- Ability to use absolute paths. [#184](https://github.com/dividab/tsconfig-paths/pull/184)
 
+### Added
+
+- Add `cwd` option to `register` function that overrides where the `tsconfig.json` search begins. See PR [#205](https://github.com/dividab/tsconfig-paths/pull/205).
 - Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
+- Let `paths` mappings be absolute paths. See PR [#184](https://github.com/dividab/tsconfig-paths/pull/184).
+
+### Changed
+
+- Ignore `--project`/`-P` CLI flag when explicit options are passed to `register`. See PR [#206](https://github.com/dividab/tsconfig-paths/pull/206).
 
 ### Added
 
