@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.0] - 2022-05-02
+
 ### Changed
 
 - Ignore `--project`/`-P` CLI flag when explicit options are passed to `register`. See PR [#206](https://github.com/dividab/tsconfig-paths/pull/206).
+- Tolerate an undefined `baseUrl` compiler option. See PR [#208](https://github.com/dividab/tsconfig-paths/pull/208).
 
 ### Added
 
@@ -17,10 +20,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
 - Let `paths` mappings be absolute paths. See PR [#184](https://github.com/dividab/tsconfig-paths/pull/184).
 - Allow `baseUrl` in `tsconfig.json` to be an absolute path. See PR [#174](https://github.com/dividab/tsconfig-paths/pull/174). Thanks to [@nwalters512](https://github.com/nwalters512) for this PR!
-
-### Fixed
-
-- Tolerate an undefined `baseUrl` compiler option. See PR [#208](https://github.com/dividab/tsconfig-paths/pull/208).
 
 ## [3.14.1] - 2022-03-22
 
