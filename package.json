@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "cd src && ts-node index.ts",
-    "example:node": "yarn build && cd ./example/node && ts-node -r ../register.js main.ts",
+    "example:node": "yarn build && cd ./example/node && ts-node -r ../../register.js main.ts",
     "example:project": "yarn build && ts-node -r ./register.js -P ./example/project/tsconfig.json ./example/project/main.ts",
     "example:api": "cd example/api && ts-node main.ts",
     "example:perf": "cd example/perf && ts-node main.ts",
