@@ -125,7 +125,12 @@ export function loadTsconfig(
 
   const configString = readFileSync(configFilePath);
   const cleanedJson = StripBom(configString);
-  const config: Tsconfig = JSON5.parse(cleanedJson);
+  let config: Tsconfig;
+  try {
+    config = JSON5.parse(cleanedJson);
+  } catch (e) {
+    throw new Error(`${configFilePath} is malformed ${e.message}`);
+  }
   let extendedConfig = config.extends;
 
   if (extendedConfig) {
