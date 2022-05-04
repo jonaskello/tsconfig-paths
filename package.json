@@ -16,6 +16,9 @@
     "LICENSE",
     "README.md"
   ],
+  "engines": {
+    "node": ">=6"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "@types/minimist": "^1.2.2",
