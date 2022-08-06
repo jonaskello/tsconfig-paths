@@ -4,7 +4,7 @@ import * as fs from "fs";
  * Typing for the fields of package.json we care about
  */
 export interface PackageJson {
-  [key: string]: string;
+  [key: string]: string | PackageJson;
 }
 
 /**

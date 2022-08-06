@@ -7,7 +7,7 @@ export interface OneTest {
   readonly skip?: boolean;
   readonly absoluteBaseUrl: string;
   readonly paths: { [key: string]: Array<string> };
-  readonly mainFields?: string[];
+  readonly mainFields?: (string | string[])[];
   readonly addMatchAll?: boolean;
   readonly existingFiles: ReadonlyArray<string>;
   readonly requestedModule: string;
@@ -148,6 +148,17 @@ export const tests: ReadonlyArray<OneTest> = [
     },
     extensions: [".ts", ".js"],
     expectedPath: join("/root", "location", "mylibjs", "kalle.js"),
+  },
+  {
+    name: "should resolve nested main fields",
+    absoluteBaseUrl: "/root/",
+    paths: { "lib/*": ["location/*"] },
+    mainFields: [["esnext", "main"]],
+    packageJson: { esnext: { main: "./main.js" } },
+    existingFiles: [join("/root", "location", "mylibjs", "main.js")],
+    extensions: [".ts", ".js"],
+    requestedModule: "lib/mylibjs",
+    expectedPath: join("/root", "location", "mylibjs", "main.js"),
   },
   {
     name: "should ignore advanced field mappings in package.json",

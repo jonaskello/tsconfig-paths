@@ -4,7 +4,7 @@ import * as path from "path";
 export interface ExplicitParams {
   baseUrl: string;
   paths: { [key: string]: Array<string> };
-  mainFields?: Array<string>;
+  mainFields?: (string | string[])[];
   addMatchAll?: boolean;
 }
 
@@ -24,7 +24,7 @@ export interface ConfigLoaderSuccessResult {
   baseUrl?: string;
   absoluteBaseUrl: string;
   paths: { [key: string]: Array<string> };
-  mainFields?: Array<string>;
+  mainFields?: (string | string[])[];
   addMatchAll?: boolean;
 }
 

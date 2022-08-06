@@ -27,7 +27,7 @@ export interface MatchPathAsyncCallback {
 export function createMatchPathAsync(
   absoluteBaseUrl: string,
   paths: { [key: string]: Array<string> },
-  mainFields: string[] = ["main"],
+  mainFields: (string | string[])[] = ["main"],
   addMatchAll: boolean = true
 ): MatchPathAsync {
   const absolutePaths = MappingEntry.getAbsoluteMappingEntries(
@@ -64,7 +64,7 @@ export function matchFromAbsolutePathsAsync(
   fileExists: Filesystem.FileExistsAsync = Filesystem.fileExistsAsync,
   extensions: ReadonlyArray<string> = Object.keys(require.extensions),
   callback: MatchPathAsyncCallback,
-  mainFields: string[] = ["main"]
+  mainFields: (string | string[])[] = ["main"]
 ): void {
   const tryPaths = TryPath.getPathsToTry(
     extensions,
@@ -88,7 +88,7 @@ export function matchFromAbsolutePathsAsync(
 
 function findFirstExistingMainFieldMappedFile(
   packageJson: Filesystem.PackageJson,
-  mainFields: string[],
+  mainFields: (string | string[])[],
   packageJsonPath: string,
   fileExistsAsync: Filesystem.FileExistsAsync,
   doneCallback: (err?: Error, filepath?: string) => void,
@@ -108,7 +108,11 @@ function findFirstExistingMainFieldMappedFile(
       index + 1
     );
 
-  const mainFieldMapping = packageJson[mainFields[index]];
+  const mainFieldSelector = mainFields[index];
+  const mainFieldMapping =
+    typeof mainFieldSelector === "string"
+      ? packageJson[mainFieldSelector]
+      : mainFieldSelector.reduce((obj, key) => obj[key], packageJson);
   if (typeof mainFieldMapping !== "string") {
     // Skip mappings that are not pointers to replacement files
     return tryNext();
@@ -136,7 +140,7 @@ function findFirstExistingPath(
   fileExists: Filesystem.FileExistsAsync,
   doneCallback: MatchPathAsyncCallback,
   index: number = 0,
-  mainFields: string[] = ["main"]
+  mainFields: (string | string[])[] = ["main"]
 ): void {
   const tryPath = tryPaths[index];
   if (
