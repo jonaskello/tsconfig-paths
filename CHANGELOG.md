@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.1] - 2022-11-30
+
+### Fixed
+
+- Skip stat call / throwing an exception when source files don't exist. See PR [#225](https://github.com/dividab/tsconfig-paths/pull/225). Thanks to [@robstolarz](https://github.com/robstolarz) for this PR!
+
 ## [4.1.0] - 2022-08-06
 
 - Add support for nested main field selectors #. See PR [#218](https://github.com/dividab/tsconfig-paths/pull/218). Thanks to [@aaronadamsCA](https://github.com/aaronadamsCA) for this PR!
