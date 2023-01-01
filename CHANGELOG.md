@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.2] - 2023-01-02
+
+### Fixed
+
+- Bump JSON5 dependency to 2.2.2 to fix CVE-2022-46175. See PR [#232](https://github.com/dividab/tsconfig-paths/pull/232). Thanks to [@oparisblue](https://github.com/oparisblue) for this PR!
+
 ## [4.1.1] - 2022-11-30
 
 ### Fixed
