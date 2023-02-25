@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.14.2] - 2023-02-25
+
+### Fixed
+
+- bump JSON5 from v1.0.1 to v1.0.2 in tsconfig-paths v3.14.1 to fix CVE-2022-46175 #234. See PR [#234](https://github.com/dividab/tsconfig-paths/pull/234). Thanks to [@mihaiplesa](https://github.com/mihaiplesa) for this PR!
+
 ## [4.1.2] - 2023-01-02
 
 ### Fixed
