@@ -1,13 +1,21 @@
 {
-  "compileOnSave": false,
+  "include": ["src/**/*"],
   "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "module": "commonjs",
+    "target": "es5",
+    // "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": true,
+    "lib": ["es2015"],
     "forceConsistentCasingInFileNames": true,
     "newLine": "LF",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-//    "noImplicitThis": true,
+    //    "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true

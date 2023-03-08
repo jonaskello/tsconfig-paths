@@ -1,16 +1,16 @@
 # tsconfig-paths
 
 [![npm version][version-image]][version-url]
-[![travis build][travis-image]][travis-url]
+[![build][build-image]][build-url]
 [![Coverage Status][codecov-image]][codecov-url]
 [![MIT license][license-image]][license-url]
 [![code style: prettier][prettier-image]][prettier-url]
 
-Use this to load modules whose location is specified in the `paths` section of `tsconfig.json`. Both loading at run-time and via API are supported.
+Use this to load modules whose location is specified in the `paths` section of `tsconfig.json` or `jsconfig.json`. Both loading at run-time and via API are supported.
 
-Typescript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/module-resolution.html) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The typescript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to exeute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
+Typescript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/module-resolution.html) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The typescript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to execute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
 
-If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` and convert node's module loading calls into to physcial file paths that node can load.
+If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` or `jsconfig.json` and convert node's module loading calls into to physical file paths that node can load.
 
 ## How to install
 
@@ -29,6 +29,10 @@ npm install --save-dev tsconfig-paths
 ### With node
 
 `node -r tsconfig-paths/register main.js`
+
+If `process.env.TS_NODE_BASEURL` is set it will override the value of `baseUrl` in tsconfig.json:
+
+`TS_NODE_BASEURL=./dist node -r tsconfig-paths/register main.js`
 
 ### With ts-node
 
@@ -52,9 +56,42 @@ mocha -r ts-node/register -r tsconfig-paths/register "test/**/*.ts"
 
 As long as the command has something similar to a `--require` option that can load a module before it starts, tsconfig-paths should be able to work with it.
 
-## Bootstraping with explicit params
+### With `ts-node` and VSCode
+
+The following is an example configuration for the `.vscode/launch.json`.
+
+```js
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Functions",
+      "request": "launch",
+      "type": "node",
+      "runtimeArgs": [
+        "-r",
+        "${workspaceFolder}/functions/node_modules/ts-node/register",
+        "-r",
+        "${workspaceFolder}/functions/node_modules/tsconfig-paths/register"
+      ],
+      "args": ["${workspaceFolder}/functions/src/index.ts"],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_PROJECT": "${workspaceFolder}/functions/tsconfig.json"
+      },
+      "outFiles": ["${workspaceFolder}/functions/lib/**/*.js"]
+    }
+  ]
+}
+```
+
+## Bootstrapping with explicit params
 
 If you want more granular control over tsconfig-paths you can bootstrap it. This can be useful if you for instance have compiled with `tsc` to another directory where `tsconfig.json` doesn't exists.
+
+For example, create a wrapper script called `tsconfig-paths-bootstrap.js` with the contents below:
 
 ```javascript
 const tsConfig = require("./tsconfig.json");
@@ -63,7 +100,7 @@ const tsConfigPaths = require("tsconfig-paths");
 const baseUrl = "./"; // Either absolute or relative path. If relative it's resolved to current working directory.
 const cleanup = tsConfigPaths.register({
   baseUrl,
-  paths: tsConfig.compilerOptions.paths
+  paths: tsConfig.compilerOptions.paths,
 });
 
 // When path registration is no longer needed
@@ -109,9 +146,10 @@ The public API consists of these functions:
 export interface ExplicitParams {
   baseUrl: string;
   paths: { [key: string]: Array<string> };
-  mainFields?: Array<string>;
+  mainFields?: (string | string[])[];
   addMatchAll?: boolean;
   matchAfterOriginal?: boolean;
+  cwd?: string;
 }
 
 /**
@@ -120,7 +158,7 @@ export interface ExplicitParams {
 export function register(explicitParams: ExplicitParams): () => void;
 ```
 
-This function will patch the node's module loading so it will look for modules in paths specified by tsconfig.json.
+This function will patch the node's module loading so it will look for modules in paths specified by `tsconfig.json` or `jsconfig.json`.
 A function is returned for you to reinstate Node's original module loading.
 
 ### loadConfig
@@ -144,7 +182,7 @@ export interface ConfigLoaderFailResult {
 }
 ```
 
-This function loads the tsconfig.json. It will start searching from the specified `cwd` directory.
+This function loads the `tsconfig.json` or `jsconfig.json`. It will start searching from the specified `cwd` directory. Passing the `tsconfig.json` or `jsconfig.json` file directly instead of a directory also works.
 
 ### createMatchPath
 
@@ -165,19 +203,19 @@ export interface MatchPath {
  * Creates a function that can resolve paths according to tsconfig paths property.
  * @param absoluteBaseUrl Absolute version of baseUrl as specified in tsconfig.
  * @param paths The paths as specified in tsconfig.
- * @param mainFields A list of package.json field names to try when resolving module files.
+ * @param mainFields A list of package.json field names to try when resolving module files. Select a nested field using an array of field names.
  * @param addMatchAll Add a match-all "*" rule if none is present
  * @returns a function that can resolve paths.
  */
 export function createMatchPath(
   absoluteBaseUrl: string,
   paths: { [key: string]: Array<string> },
-  mainFields: string[] = ["main"],
+  mainFields: (string | string[])[] = ["main"],
   addMatchAll: boolean = true
 ): MatchPath {
 ```
 
-The `createMatchPath` function will create a function that can match paths. It accepts `baseUrl` and `paths` directly as they are specified in tsconfig and will handle resolving paths to absolute form. The created function has the signare specified by the type `MatchPath` above.
+The `createMatchPath` function will create a function that can match paths. It accepts `baseUrl` and `paths` directly as they are specified in tsconfig and will handle resolving paths to absolute form. The created function has the signature specified by the type `MatchPath` above.
 
 ### matchFromAbsolutePaths
 
@@ -187,9 +225,9 @@ The `createMatchPath` function will create a function that can match paths. It a
  * @param absolutePathMappings The paths to try as specified in tsconfig but resolved to absolute form.
  * @param requestedModule The required module name.
  * @param readJson Function that can read json from a path (useful for testing).
- * @param fileExists Function that checks for existance of a file at a path (useful for testing).
+ * @param fileExists Function that checks for existence of a file at a path (useful for testing).
  * @param extensions File extensions to probe for (useful for testing).
- * @param mainFields A list of package.json field names to try when resolving module files.
+ * @param mainFields A list of package.json field names to try when resolving module files. Select a nested field using an array of field names.
  * @returns the found path, or undefined if no path was found.
  */
 export function matchFromAbsolutePaths(
@@ -198,11 +236,11 @@ export function matchFromAbsolutePaths(
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
   extensions: Array<string> = Object.keys(require.extensions),
-  mainFields: string[] = ["main"]
+  mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
 ```
 
-This function is lower level and requries that the paths as already been resolved to absolute form and sorted in correct order into an array.
+This function is lower level and requires that the paths as already been resolved to absolute form and sorted in correct order into an array.
 
 ### createMatchPathAsync
 
@@ -212,10 +250,18 @@ This is the async version of `createMatchPath`. It has the same signature but wi
 
 This is the async version of `matchFromAbsolutePaths`. It has the same signature but with a callback parameter for the result.
 
+## How to publish
+
+```
+yarn version --patch
+yarn version --minor
+yarn version --major
+```
+
 [version-image]: https://img.shields.io/npm/v/tsconfig-paths.svg?style=flat
 [version-url]: https://www.npmjs.com/package/tsconfig-paths
-[travis-image]: https://travis-ci.com/dividab/tsconfig-paths.svg?branch=master&style=flat
-[travis-url]: https://travis-ci.com/dividab/tsconfig-paths
+[build-image]: https://github.com/dividab/tsconfig-paths/workflows/CI/badge.svg
+[build-url]: https://github.com/dividab/tsconfig-paths/actions/workflows/ci.yml?query=branch%3Amaster
 [codecov-image]: https://codecov.io/gh/dividab/tsconfig-paths/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/dividab/tsconfig-paths
 [license-image]: https://img.shields.io/github/license/dividab/tsconfig-paths.svg?style=flat

@@ -17,16 +17,17 @@ export interface MatchPath {
 
 /**
  * Creates a function that can resolve paths according to tsconfig paths property.
+ *
  * @param absoluteBaseUrl Absolute version of baseUrl as specified in tsconfig.
  * @param paths The paths as specified in tsconfig.
- * @param mainFields A list of package.json field names to try when resolving module files.
+ * @param mainFields A list of package.json field names to try when resolving module files. Select a nested field using an array of field names.
  * @param addMatchAll Add a match-all "*" rule if none is present
  * @returns a function that can resolve paths.
  */
 export function createMatchPath(
   absoluteBaseUrl: string,
   paths: { [key: string]: Array<string> },
-  mainFields: string[] = ["main"],
+  mainFields: (string | string[])[] = ["main"],
   addMatchAll: boolean = true
 ): MatchPath {
   const absolutePaths = MappingEntry.getAbsoluteMappingEntries(
@@ -53,12 +54,13 @@ export function createMatchPath(
 
 /**
  * Finds a path from tsconfig that matches a module load request.
+ *
  * @param absolutePathMappings The paths to try as specified in tsconfig but resolved to absolute form.
  * @param requestedModule The required module name.
  * @param readJson Function that can read json from a path (useful for testing).
- * @param fileExists Function that checks for existance of a file at a path (useful for testing).
+ * @param fileExists Function that checks for existence of a file at a path (useful for testing).
  * @param extensions File extensions to probe for (useful for testing).
- * @param mainFields A list of package.json field names to try when resolving module files.
+ * @param mainFields A list of package.json field names to try when resolving module files. Select a nested field using an array of field names.
  * @returns the found path, or undefined if no path was found.
  */
 export function matchFromAbsolutePaths(
@@ -67,7 +69,7 @@ export function matchFromAbsolutePaths(
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
   extensions: Array<string> = Object.keys(require.extensions),
-  mainFields: string[] = ["main"]
+  mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
   const tryPaths = TryPath.getPathsToTry(
     extensions,
@@ -84,13 +86,16 @@ export function matchFromAbsolutePaths(
 
 function findFirstExistingMainFieldMappedFile(
   packageJson: Filesystem.PackageJson,
-  mainFields: string[],
+  mainFields: (string | string[])[],
   packageJsonPath: string,
   fileExists: Filesystem.FileExistsSync
 ): string | undefined {
   for (let index = 0; index < mainFields.length; index++) {
-    const mainFieldName = mainFields[index];
-    const candidateMapping = packageJson[mainFieldName];
+    const mainFieldSelector = mainFields[index];
+    const candidateMapping =
+      typeof mainFieldSelector === "string"
+        ? packageJson[mainFieldSelector]
+        : mainFieldSelector.reduce((obj, key) => obj[key], packageJson);
     if (candidateMapping && typeof candidateMapping === "string") {
       const candidateFilePath = path.join(
         path.dirname(packageJsonPath),
@@ -109,7 +114,7 @@ function findFirstExistingPath(
   tryPaths: ReadonlyArray<TryPath.TryPath>,
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync,
-  mainFields: string[] = ["main"]
+  mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
   for (const tryPath of tryPaths) {
     if (
@@ -118,7 +123,6 @@ function findFirstExistingPath(
       tryPath.type === "index"
     ) {
       if (fileExists(tryPath.path)) {
-        // Not sure why we don't just return the full path? Why strip it?
         return TryPath.getStrippedPath(tryPath);
       }
     } else if (tryPath.type === "package") {
@@ -131,8 +135,7 @@ function findFirstExistingPath(
           fileExists
         );
         if (mainFieldMappedFile) {
-          // Not sure why we don't just return the full path? Why strip it?
-          return Filesystem.removeExtension(mainFieldMappedFile);
+          return mainFieldMappedFile;
         }
       }
     } else {

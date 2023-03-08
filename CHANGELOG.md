@@ -7,6 +7,99 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.14.2] - 2023-02-25
+
+### Fixed
+
+- bump JSON5 from v1.0.1 to v1.0.2 in tsconfig-paths v3.14.1 to fix CVE-2022-46175 #234. See PR [#234](https://github.com/dividab/tsconfig-paths/pull/234). Thanks to [@mihaiplesa](https://github.com/mihaiplesa) for this PR!
+
+## [4.1.2] - 2023-01-02
+
+### Fixed
+
+- Bump JSON5 dependency to 2.2.2 to fix CVE-2022-46175. See PR [#232](https://github.com/dividab/tsconfig-paths/pull/232). Thanks to [@oparisblue](https://github.com/oparisblue) for this PR!
+
+## [4.1.1] - 2022-11-30
+
+### Fixed
+
+- Skip stat call / throwing an exception when source files don't exist. See PR [#225](https://github.com/dividab/tsconfig-paths/pull/225). Thanks to [@robstolarz](https://github.com/robstolarz) for this PR!
+
+## [4.1.0] - 2022-08-06
+
+- Add support for nested main field selectors #. See PR [#218](https://github.com/dividab/tsconfig-paths/pull/218). Thanks to [@aaronadamsCA](https://github.com/aaronadamsCA) for this PR!
+
+## [4.0.0] - 2022-05-02
+
+### Changed
+
+- Ignore `--project`/`-P` CLI flag when explicit options are passed to `register`. See PR [#206](https://github.com/dividab/tsconfig-paths/pull/206).
+- Tolerate an undefined `baseUrl` compiler option. See PR [#208](https://github.com/dividab/tsconfig-paths/pull/208).
+
+### Added
+
+- Add `cwd` option to `register` function that overrides where the `tsconfig.json` search begins. See PR [#205](https://github.com/dividab/tsconfig-paths/pull/205).
+- Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
+- Let `paths` mappings be absolute paths. See PR [#184](https://github.com/dividab/tsconfig-paths/pull/184).
+- Allow `baseUrl` in `tsconfig.json` to be an absolute path. See PR [#174](https://github.com/dividab/tsconfig-paths/pull/174). Thanks to [@nwalters512](https://github.com/nwalters512) for this PR!
+
+## [3.14.1] - 2022-03-22
+
+### Fixed
+
+- Use minimist 1.2.6 for all depencencies becuase of pollution vulnerability. See PR [#197](https://github.com/dividab/tsconfig-paths/pull/197). Thanks to [@gopijaganthan](https://github.com/gopijaganthan) for this fix!
+
+## [3.14.0] - 2022-03-13
+
+### Added
+
+- Support for path mapping starting with `/`. See PR [#180](https://github.com/dividab/tsconfig-paths/pull/180), issue [#113](https://github.com/dividab/tsconfig-paths/issues/113), and issue [#128](https://github.com/dividab/tsconfig-paths/issues/128). Thanks to [@benevbright](https://github.com/benevbright) for this fix!
+
+## [3.13.0] - 2022-03-03
+
+### Added
+
+- Include file extension in paths resolved from package.json "main" field. See PR [#135](https://github.com/dividab/tsconfig-paths/pull/135) and issue [#133](https://github.com/dividab/tsconfig-paths/issues/133). Thanks to [@katywings](https://github.com/katywings) for this fix!
+
+## [3.12.0] - 2021-08-24
+
+- Add support for baseUrl override using TS_NODE_BASEURL env var #185 and #114. Thanks to @ejhayes and @information-security for these PRs!
+
+## [3.11.0] - 2021-08-24
+
+- Reverted upgrade of json5 due to being a breaking change. See PR #173.
+
+## [3.10.1] - 2021-07-06
+
+### Fixed
+
+- Add register.js to published files
+
+## [3.10.0] - 2021-07-06
+
+### Added
+
+- feat(tsconfig-loader): extends config from node_modules (#106). Thanks to @zorji for this PR!
+
+### Fixed
+
+- Update CHANGELOG.md (#96). Thanks to @OliverJAsh for this PR!
+- Fix "bootstraping" typo (#111). Thanks to @KRMisha for this PR!
+- Update Readme fixes #116 (#123). Thanks to @benwinding for this PR!
+- Fixed typo (#144). Thanks to @mprinc for this PR!
+- [TYPO] src/mapping-entry.ts (#145). Thanks to @mprinc for this PR!
+- docs(README): fix typos (#156). Thanks to @PiDelport for this PR!
+- deps: bump json5 to use type definition provided officially (#158). Thanks to @koba04 for this PR!
+- Update tsconfig-loader.ts (#161). Thanks to @fecqs for this PR!
+- fix typo (#165). Thanks to @wonda-tea-coffee for this PR!
+- Add file extenstion to typings property value (#151). Thanks to @dangrussell for this PR!
+
+## [3.9.0] - 2019-09-12
+
+### Added
+
+- Make extension config override instead of deep merge. See PR [#95](https://github.com/dividab/tsconfig-paths/pull/95) and issue [#94](https://github.com/dividab/tsconfig-paths/issues/94). Thanks to [@OliverJAsh](https://github.com/OliverJAsh) for this addition!
+
 ## [3.8.0] - 2019-02-05
 
 ### Added
@@ -53,7 +146,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Adding json file extention to extends property, [#40](https://github.com/dividab/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
+- Adding json file extension to extends property, [#40](https://github.com/dividab/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
 
 ## [3.3.1] - 2018-04-17
 
@@ -275,7 +368,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial version.
 
-[unreleased]: https://github.com/dividab/tsconfig-paths/compare/3.8.0...master
+[unreleased]: https://github.com/dividab/tsconfig-paths/compare/v3.9.0...master
+[3.9.0]: https://github.com/dividab/tsconfig-paths/compare/v3.8.0...v3.9.0
 [3.8.0]: https://github.com/dividab/tsconfig-paths/compare/3.7.0...3.8.0
 [3.7.0]: https://github.com/dividab/tsconfig-paths/compare/3.6.0...3.7.0
 [3.6.0]: https://github.com/dividab/tsconfig-paths/compare/3.5.0...3.6.0

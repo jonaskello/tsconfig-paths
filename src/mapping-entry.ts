@@ -12,11 +12,12 @@ export interface Paths {
 /**
  * Converts an absolute baseUrl and paths to an array of absolute mapping entries.
  * The array is sorted by longest prefix.
- * Having an array with entries allows us to keep a sorting order rather than 
- * sort by keys each time we use the mappings. 
- * @param absoluteBaseUrl 
- * @param paths 
- * @param addMatchAll 
+ * Having an array with entries allows us to keep a sorting order rather than
+ * sort by keys each time we use the mappings.
+ *
+ * @param absoluteBaseUrl
+ * @param paths
+ * @param addMatchAll
  */
 export function getAbsoluteMappingEntries(
   absoluteBaseUrl: string,
@@ -25,15 +26,15 @@ export function getAbsoluteMappingEntries(
 ): ReadonlyArray<MappingEntry> {
   // Resolve all paths to absolute form once here, and sort them by
   // longest prefix once here, this saves time on each request later.
-  // We need to put them in an array to preseve the sorting order.
+  // We need to put them in an array to preserve the sorting order.
   const sortedKeys = sortByLongestPrefix(Object.keys(paths));
   const absolutePaths: Array<MappingEntry> = [];
   for (const key of sortedKeys) {
     absolutePaths.push({
       pattern: key,
-      paths: paths[key].map(pathToResolve =>
-        path.join(absoluteBaseUrl, pathToResolve)
-      )
+      paths: paths[key].map((pathToResolve) =>
+        path.resolve(absoluteBaseUrl, pathToResolve)
+      ),
     });
   }
   // If there is no match-all path specified in the paths section of tsconfig, then try to match
@@ -41,7 +42,7 @@ export function getAbsoluteMappingEntries(
   if (!paths["*"] && addMatchAll) {
     absolutePaths.push({
       pattern: "*",
-      paths: [`${absoluteBaseUrl.replace(/\/$/, "")}/*`]
+      paths: [`${absoluteBaseUrl.replace(/\/$/, "")}/*`],
     });
   }
 

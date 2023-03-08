@@ -2,23 +2,23 @@
 export {
   createMatchPath,
   matchFromAbsolutePaths,
-  MatchPath
+  MatchPath,
 } from "./match-path-sync";
 export {
   createMatchPathAsync,
   matchFromAbsolutePathsAsync,
-  MatchPathAsync
+  MatchPathAsync,
 } from "./match-path-async";
 export { register } from "./register";
 export {
   loadConfig,
   ConfigLoaderResult,
   ConfigLoaderSuccessResult,
-  ConfigLoaderFailResult
+  ConfigLoaderFailResult,
 } from "./config-loader";
 export {
   ReadJsonSync,
   ReadJsonAsync,
   FileExistsSync,
-  FileExistsAsync
+  FileExistsAsync,
 } from "./filesystem";

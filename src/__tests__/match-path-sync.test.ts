@@ -1,9 +1,8 @@
-import { assert } from "chai";
-import { createMatchPath } from "../src/match-path-sync";
+import { createMatchPath } from "../match-path-sync";
 import * as Tests from "./data/match-path-data";
 
 describe("match-path-sync", () => {
-  Tests.tests.forEach(t =>
+  Tests.tests.forEach((t) =>
     it(t.name, () => {
       const matchPath = createMatchPath(
         t.absoluteBaseUrl,
@@ -14,10 +13,10 @@ describe("match-path-sync", () => {
       const result = matchPath(
         t.requestedModule,
         (_: string) => t.packageJson,
-        (name: string) => t.existingFiles.indexOf(name) !== -1, // fileExists
+        (name: string) => t.existingFiles.indexOf(name) !== -1,
         t.extensions
       );
-      assert.equal(result, t.expectedPath);
+      expect(result).toBe(t.expectedPath);
     })
   );
 });
