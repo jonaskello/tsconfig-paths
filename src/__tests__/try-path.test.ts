@@ -95,6 +95,79 @@ describe("mapping-entry", () => {
     ]);
   });
 
+  it.each(["js", "jsx", "mjs", "cjs"])(
+    "should include paths with ending .%s removed that matches requested module",
+    (extension) => {
+      const result = getPathsToTry(
+        [".ts", ".tsx"],
+        [
+          {
+            pattern: "longest/pre/fix/*",
+            paths: [join("/absolute", "base", "url", "foo2", "*")],
+          },
+        ],
+        `longest/pre/fix/bar.${extension}`
+      );
+
+      expect(result).toEqual(
+        expect.arrayContaining([
+          {
+            type: "extension",
+            path: join("/absolute", "base", "url", "foo2", "bar.ts"),
+          },
+          {
+            type: "extension",
+            path: join("/absolute", "base", "url", "foo2", "bar.tsx"),
+          },
+        ])
+      );
+    }
+  );
+
+  it.each([
+    ["mjs", "mts"],
+    ["cjs", "cts"],
+  ])(
+    "should include paths with ending .%s removed that matches requested module with extension .%s",
+    (requestedModuleExtension, expectedExtension) => {
+      const result = getPathsToTry(
+        [".ts", ".tsx", `.${expectedExtension}`, `.${expectedExtension}x`],
+        [
+          {
+            pattern: "longest/pre/fix/*",
+            paths: [join("/absolute", "base", "url", "foo2", "*")],
+          },
+        ],
+        `longest/pre/fix/bar.${requestedModuleExtension}`
+      );
+
+      expect(result).toEqual(
+        expect.arrayContaining([
+          {
+            type: "extension",
+            path: join(
+              "/absolute",
+              "base",
+              "url",
+              "foo2",
+              `bar.${expectedExtension}`
+            ),
+          },
+          {
+            type: "extension",
+            path: join(
+              "/absolute",
+              "base",
+              "url",
+              "foo2",
+              `bar.${expectedExtension}x`
+            ),
+          },
+        ])
+      );
+    }
+  );
+
   it("should resolve paths starting with a slash", () => {
     const result = getPathsToTry(
       [".ts"],

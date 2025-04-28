@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.2.0] - 2023-03-29
+
+### Added
+
+- Add support for tsconfig extends as array of strings. #. See PR [#245](https://github.com/dividab/tsconfig-paths/pull/245). Thanks to [@DanielSidhion](https://github.com/DanielSidhion) for this PR!
+
+## [3.14.2] - 2023-02-25
+
+### Fixed
+
+- bump JSON5 from v1.0.1 to v1.0.2 in tsconfig-paths v3.14.1 to fix CVE-2022-46175 #234. See PR [#234](https://github.com/dividab/tsconfig-paths/pull/234). Thanks to [@mihaiplesa](https://github.com/mihaiplesa) for this PR!
+
+## [4.1.2] - 2023-01-02
+
+### Fixed
+
+- Bump JSON5 dependency to 2.2.2 to fix CVE-2022-46175. See PR [#232](https://github.com/dividab/tsconfig-paths/pull/232). Thanks to [@oparisblue](https://github.com/oparisblue) for this PR!
+
+## [4.1.1] - 2022-11-30
+
+### Fixed
+
+- Skip stat call / throwing an exception when source files don't exist. See PR [#225](https://github.com/dividab/tsconfig-paths/pull/225). Thanks to [@robstolarz](https://github.com/robstolarz) for this PR!
+
 ## [4.1.0] - 2022-08-06
 
 - Add support for nested main field selectors #. See PR [#218](https://github.com/dividab/tsconfig-paths/pull/218). Thanks to [@aaronadamsCA](https://github.com/aaronadamsCA) for this PR!
@@ -104,7 +128,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Add support for trailing commas in tsconfig.json (use JSON5 to parse). See issue [#48](https://github.com/dividab/tsconfig-paths/issues/48), and PR [#58](https://github.com/dividab/tsconfig-paths/pull/58). Thanks to [@jshado1](https://github.com/jshado1) for this addition!
+- Add support for trailing commas in tsconfig.json (use JSON5 to parse). See issue [#48](https://github.com/dividab/tsconfig-paths/issues/48), and PR [#58](https://github.com/dividab/tsconfig-paths/pull/58). Thanks to [@JakobJingleheimer](https://github.com/JakobJingleheimer) for this addition!
 
 ## [3.4.2] - 2018-06-30
 

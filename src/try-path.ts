@@ -24,6 +24,7 @@ export function getPathsToTry(
     return undefined;
   }
 
+  const suffixRegex = /\.(c|m)?jsx?$/;
   const pathsToTry: Array<TryPath> = [];
   for (const entry of absolutePathMappings) {
     const starMatch =
@@ -39,6 +40,17 @@ export function getPathsToTry(
             (e) => ({ type: "extension", path: physicalPath + e } as TryPath)
           )
         );
+        if (physicalPath.match(suffixRegex)) {
+          pathsToTry.push(
+            ...extensions.map(
+              (e) =>
+                ({
+                  type: "extension",
+                  path: physicalPath.replace(suffixRegex, "") + e,
+                } as TryPath)
+            )
+          );
+        }
         pathsToTry.push({
           type: "package",
           path: path.join(physicalPath, "/package.json"),

@@ -227,4 +227,15 @@ export const tests: ReadonlyArray<OneTest> = [
     expectedPath: join("/root", "mylib", "index.cjs"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
+  {
+    name: "should resolve .ts from .js alias",
+    absoluteBaseUrl: "/root/",
+    paths: {
+      "@/*": ["src/*"],
+    },
+    existingFiles: [join("/root", "src", "foo.ts")],
+    requestedModule: "@/foo.js",
+    expectedPath: join("/root", "src", "foo"),
+    extensions: defaultExtensionsWhenRunningInTsNode,
+  },
 ];

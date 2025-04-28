@@ -1,21 +1,12 @@
 {
   "name": "tsconfig-paths",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Load node modules according to tsconfig paths, in run-time or via API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Jonas Kello",
   "license": "MIT",
   "repository": "https://github.com/dividab/tsconfig-paths",
-  "files": [
-    "/src",
-    "/lib",
-    "register.js",
-    "package.json",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
   "engines": {
     "node": ">=6"
   },
@@ -41,7 +32,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "json5": "^2.2.1",
+    "json5": "^2.2.2",
     "minimist": "^1.2.6",
     "strip-bom": "^3.0.0"
   },
