@@ -93,7 +93,7 @@ export function exhaustiveTypeException(check: never): never {
  * @returns the part of search that * matches, or undefined if no match.
  */
 function matchStar(pattern: string, search: string): string | undefined {
-  if (search.length < pattern.length) {
+  if (search.length + 1 < pattern.length) {
     return undefined;
   }
   if (pattern === "*") {
