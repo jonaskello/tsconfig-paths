@@ -234,4 +234,27 @@ describe("mapping-entry", () => {
       },
     ]);
   });
+
+  it("should resolve paths exactly same as input path without trailing slash", () => {
+    const result = getPathsToTry(
+      [],
+      [
+        {
+          pattern: "/opt/*",
+          paths: [join("/absolute", "src", "*")],
+        },
+      ],
+      "/opt"
+    );
+    expect(result).toEqual([
+      {
+        path: join("/absolute", "src") + "/",
+        type: "file",
+      },
+      {
+        path: join("/absolute", "src", "package.json"),
+        type: "package",
+      },
+    ]);
+  });
 });
