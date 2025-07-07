@@ -257,4 +257,35 @@ describe("mapping-entry", () => {
       },
     ]);
   });
+
+  it("glob match with suffix part on result", () => {
+    const result = getPathsToTry(
+      [],
+      [
+        {
+          pattern: "/opt/*",
+          paths: [join("/absolute", "src", "*", "suffix", "part")],
+        },
+      ],
+      "/opt/relative/part"
+    );
+    expect(result).toEqual([
+      {
+        path: join("/absolute", "src", "relative", "part", "suffix", "part"),
+        type: "file",
+      },
+      {
+        path: join(
+          "/absolute",
+          "src",
+          "relative",
+          "part",
+          "suffix",
+          "part",
+          "package.json"
+        ),
+        type: "package",
+      },
+    ]);
+  });
 });
