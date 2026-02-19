@@ -6,7 +6,10 @@
   "types": "lib/index.d.ts",
   "author": "Jonas Kello",
   "license": "MIT",
-  "repository": "https://github.com/dividab/tsconfig-paths",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonaskello/tsconfig-paths.git"
+  },
   "files": [
     "/src/**/*.{js,ts,tsx}",
     "/lib/**/*.{js,ts,tsx}",

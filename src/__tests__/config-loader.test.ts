@@ -73,7 +73,7 @@ describe("config-loader", (): void => {
 
   it("should presume cwd to be a tsconfig file when loadConfig is called with absolute path to tsconfig.json", () => {
     // using tsconfig-named.json to ensure that future changes to fix
-    // https://github.com/dividab/tsconfig-paths/issues/31
+    // https://github.com/jonaskello/tsconfig-paths/issues/31
     // do not pass this test case just because of a directory walk looking
     // for tsconfig.json
     const configFile = join(__dirname, "tsconfig-named.json");

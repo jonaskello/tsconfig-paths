@@ -46,7 +46,7 @@ If `process.env.TS_NODE_PROJECT` is set it will be used to resolved `tsconfig.js
 
 ### With Webpack
 
-For Webpack please use the [tsconfig-paths-webpack-plugin](https://github.com/dividab/tsconfig-paths-webpack-plugin).
+For Webpack please use the [tsconfig-paths-webpack-plugin](https://github.com/jonaskello/tsconfig-paths-webpack-plugin).
 
 ### With mocha and ts-node
 

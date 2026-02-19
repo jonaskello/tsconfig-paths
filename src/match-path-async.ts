@@ -205,7 +205,7 @@ function findFirstExistingPath(
       // like Webpack will actually not allow you to call the same callback twice.
       //
       // An example of where this caused issues:
-      // https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/11
+      // https://github.com/jonaskello/tsconfig-paths-webpack-plugin/issues/11
       //
       // Continue with the next path
       return findFirstExistingPath(
