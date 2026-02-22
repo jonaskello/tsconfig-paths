@@ -8,7 +8,7 @@
 
 Use this to load modules whose location is specified in the `paths` section of `tsconfig.json` or `jsconfig.json`. Both loading at run-time and via API are supported.
 
-Typescript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/module-resolution.html) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The typescript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to execute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
+TypeScript by default mimics the Node.js runtime resolution strategy of modules. But it also allows the use of [path mapping](https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution) which allows arbitrary module paths (that doesn't start with "/" or ".") to be specified and mapped to physical paths in the filesystem. The TypeScript compiler can resolve these paths from `tsconfig` so it will compile OK. But if you then try to execute the compiled files with node (or ts-node), it will only look in the `node_modules` folders all the way up to the root of the filesystem and thus will not find the modules specified by `paths` in `tsconfig`.
 
 If you require this package's `tsconfig-paths/register` module it will read the `paths` from `tsconfig.json` or `jsconfig.json` and convert node's module loading calls to physical file paths that node can load.
 
@@ -26,25 +26,31 @@ bun install --dev tsconfig-paths
 
 ### With node
 
-`node -r tsconfig-paths/register main.js`
+```bash
+node -r tsconfig-paths/register main.js
+```
 
-If `process.env.TS_NODE_BASEURL` is set it will override the value of `baseUrl` in tsconfig.json:
+If `process.env.TS_NODE_BASEURL` is set it will override the value of `baseUrl` in `tsconfig.json`:
 
-`TS_NODE_BASEURL=./dist node -r tsconfig-paths/register main.js`
+```bash
+TS_NODE_BASEURL=./dist node -r tsconfig-paths/register main.js
+```
 
 ### With ts-node
 
-`ts-node -r tsconfig-paths/register main.ts`
+```bash
+ts-node -r tsconfig-paths/register main.ts
+```
 
-If `process.env.TS_NODE_PROJECT` is set it will be used to resolved tsconfig.json
+If `process.env.TS_NODE_PROJECT` is set it will be used to resolved `tsconfig.json`
 
-### With webpack
+### With Webpack
 
-For webpack please use the [tsconfig-paths-webpack-plugin](https://github.com/dividab/tsconfig-paths-webpack-plugin).
+For Webpack please use the [tsconfig-paths-webpack-plugin](https://github.com/dividab/tsconfig-paths-webpack-plugin).
 
 ### With mocha and ts-node
 
-As of Mocha >= 4.0.0 the `--compiler` was [deprecated](https://github.com/mochajs/mocha/wiki/compilers-deprecation). Instead `--require` should be used. You also have to specify a glob that includes `.ts` files because mocha looks after files with `.js` extension by default.
+As of Mocha >= 4.0.0 the `--compiler` was [deprecated](https://mochajs.org/explainers/compilers-deprecation/). Instead `--require` should be used. You also have to specify a glob that includes `.ts` files because mocha looks after files with `.js` extension by default.
 
 ```bash
 mocha -r ts-node/register -r tsconfig-paths/register "test/**/*.ts"
@@ -58,7 +64,7 @@ As long as the command has something similar to a `--require` option that can lo
 
 The following is an example configuration for the `.vscode/launch.json`.
 
-```js
+```jsonc
 {
   "version": "0.2.0",
   "configurations": [
@@ -91,7 +97,7 @@ If you want more granular control over tsconfig-paths you can bootstrap it. This
 
 For example, create a wrapper script called `tsconfig-paths-bootstrap.js` with the contents below:
 
-```javascript
+```js
 const tsConfig = require("./tsconfig.json");
 const tsConfigPaths = require("tsconfig-paths");
 
@@ -107,7 +113,9 @@ cleanup();
 
 Then run with:
 
-`node -r ./tsconfig-paths-bootstrap.js main.js`
+```bash
+node -r ./tsconfig-paths-bootstrap.js main.js
+```
 
 ## Configuration Options
 
@@ -125,18 +133,18 @@ _Environment variable denoted in parentheses._
 
 ## Config loading process
 
-1.  Use explicit params passed to register
-2.  Use `process.env.TS_NODE_PROJECT` to resolve tsConfig.json and the specified baseUrl and paths.
-3.  Resolves tsconfig.json from current working directory and the specified baseUrl and paths.
+1. Use explicit params passed to register
+2. Use `process.env.TS_NODE_PROJECT` to resolve `tsConfig.json` and the specified `baseUrl` and paths.
+3. Resolves `tsconfig.json` from current working directory and the specified `baseUrl` and paths.
 
 ## Programmatic use
 
 The public API consists of these functions:
 
 - [register](#register)
-- [loadConfig](#loadConfig)
-- [createMatchPath](#createMatchPath) / [createMatchPathAsync](#createMatchPathAsync)
-- [matchFromAbsolutePaths](#matchFromAbsolutePaths) / [matchFromAbsolutePathsAsync](#matchFromAbsolutePathsAsync)
+- [loadConfig](#loadconfig)
+- [createMatchPath](#creatematchpath) / [createMatchPathAsync](#creatematchpathasync)
+- [matchFromAbsolutePaths](#matchfromabsolutepaths) / [matchFromAbsolutePathsAsync](#matchfromabsolutepathsasync)
 
 ### register
 
@@ -249,19 +257,19 @@ This is the async version of `matchFromAbsolutePaths`. It has the same signature
 
 ## How to publish
 
-```
+```bash
 yarn version --patch
 yarn version --minor
 yarn version --major
 ```
 
-[version-image]: https://img.shields.io/npm/v/tsconfig-paths.svg?style=flat
+[version-image]: https://img.shields.io/npm/v/tsconfig-paths?logo=npm&logoColor=fff
 [version-url]: https://www.npmjs.com/package/tsconfig-paths
-[build-image]: https://github.com/dividab/tsconfig-paths/workflows/CI/badge.svg
-[build-url]: https://github.com/dividab/tsconfig-paths/actions/workflows/ci.yml?query=branch%3Amaster
-[codecov-image]: https://codecov.io/gh/dividab/tsconfig-paths/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/dividab/tsconfig-paths
-[license-image]: https://img.shields.io/github/license/dividab/tsconfig-paths.svg?style=flat
-[license-url]: https://opensource.org/licenses/MIT
-[prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg
+[build-image]: https://img.shields.io/github/actions/workflow/status/jonaskello/tsconfig-paths/ci.yml?branch=master&label=CI&logo=github
+[build-url]: https://github.com/jonaskello/tsconfig-paths/actions/workflows/ci.yml?query=branch%3Amaster
+[codecov-image]: https://img.shields.io/codecov/c/github/dividab/tsconfig-paths?branch=master&label=codecov&logo=codecov&logoColor=fff
+[codecov-url]: https://app.codecov.io/gh/dividab/tsconfig-paths/tree/master
+[license-image]: https://img.shields.io/github/license/jonaskello/tsconfig-paths
+[license-url]: https://opensource.org/license/MIT
+[prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4
 [prettier-url]: https://github.com/prettier/prettier
