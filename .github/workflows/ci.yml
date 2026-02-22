@@ -17,7 +17,7 @@ jobs:
       - name: Setup NodeJs
         uses: actions/setup-node@v2
         with:
-          node-version: "lts/*"
+          node-version: "18"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -37,6 +37,7 @@ jobs:
         node_version:
           - "14"
           - "16"
+          - "18"
 
     steps:
       - uses: actions/checkout@v1
