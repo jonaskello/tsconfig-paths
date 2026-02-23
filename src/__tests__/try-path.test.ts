@@ -211,4 +211,81 @@ describe("mapping-entry", () => {
       },
     ]);
   });
+
+  it("should resolve paths exactly same as input path with trailing slash", () => {
+    const result = getPathsToTry(
+      [],
+      [
+        {
+          pattern: "/opt/*",
+          paths: [join("/absolute", "src", "*")],
+        },
+      ],
+      "/opt/"
+    );
+    expect(result).toEqual([
+      {
+        path: join("/absolute", "src") + "/",
+        type: "file",
+      },
+      {
+        path: join("/absolute", "src", "package.json"),
+        type: "package",
+      },
+    ]);
+  });
+
+  it("should resolve paths exactly same as input path without trailing slash", () => {
+    const result = getPathsToTry(
+      [],
+      [
+        {
+          pattern: "/opt/*",
+          paths: [join("/absolute", "src", "*")],
+        },
+      ],
+      "/opt"
+    );
+    expect(result).toEqual([
+      {
+        path: join("/absolute", "src") + "/",
+        type: "file",
+      },
+      {
+        path: join("/absolute", "src", "package.json"),
+        type: "package",
+      },
+    ]);
+  });
+
+  it("glob match with suffix part on result", () => {
+    const result = getPathsToTry(
+      [],
+      [
+        {
+          pattern: "/opt/*",
+          paths: [join("/absolute", "src", "*", "suffix", "part")],
+        },
+      ],
+      "/opt/relative/part"
+    );
+    expect(result).toEqual([
+      {
+        path: join("/absolute", "src", "relative", "part", "suffix", "part"),
+        type: "file",
+      },
+      {
+        path: join(
+          "/absolute",
+          "src",
+          "relative",
+          "part",
+          "suffix",
+          "part",
+          "package.json"
+        ),
+        type: "package",
+      },
+    ]);
+  });
 });

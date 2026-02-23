@@ -93,7 +93,7 @@ export function exhaustiveTypeException(check: never): never {
  * @returns the part of search that * matches, or undefined if no match.
  */
 function matchStar(pattern: string, search: string): string | undefined {
-  if (search.length < pattern.length) {
+  if (search.length + 2 < pattern.length) {
     return undefined;
   }
   if (pattern === "*") {
@@ -105,6 +105,10 @@ function matchStar(pattern: string, search: string): string | undefined {
   }
   const part1 = pattern.substring(0, star);
   const part2 = pattern.substring(star + 1);
+  // "/some/path/*" should match "/some/path"
+  if (part1 === search + "/" && part2 === "") {
+    return "";
+  }
   if (search.substr(0, star) !== part1) {
     return undefined;
   }
