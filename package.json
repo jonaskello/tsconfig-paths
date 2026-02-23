@@ -7,6 +7,12 @@
   "author": "Jonas Kello",
   "license": "MIT",
   "repository": "https://github.com/dividab/tsconfig-paths",
+  "files": [
+    "/src/**/*.{js,ts,tsx}",
+    "/lib/**/*.{js,ts,tsx}",
+    "register.js",
+    "!**/__tests__/**"
+  ],
   "engines": {
     "node": ">=6"
   },
