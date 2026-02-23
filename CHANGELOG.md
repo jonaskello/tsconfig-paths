@@ -11,61 +11,61 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Add support for tsconfig extends as array of strings. #. See PR [#245](https://github.com/dividab/tsconfig-paths/pull/245). Thanks to [@DanielSidhion](https://github.com/DanielSidhion) for this PR!
+- Add support for tsconfig extends as array of strings. #. See PR [#245](https://github.com/jonaskello/tsconfig-paths/pull/245). Thanks to [@DanielSidhion](https://github.com/DanielSidhion) for this PR!
 
 ## [3.14.2] - 2023-02-25
 
 ### Fixed
 
-- bump JSON5 from v1.0.1 to v1.0.2 in tsconfig-paths v3.14.1 to fix CVE-2022-46175 #234. See PR [#234](https://github.com/dividab/tsconfig-paths/pull/234). Thanks to [@mihaiplesa](https://github.com/mihaiplesa) for this PR!
+- bump JSON5 from v1.0.1 to v1.0.2 in tsconfig-paths v3.14.1 to fix CVE-2022-46175 #234. See PR [#234](https://github.com/jonaskello/tsconfig-paths/pull/234). Thanks to [@mihaiplesa](https://github.com/mihaiplesa) for this PR!
 
 ## [4.1.2] - 2023-01-02
 
 ### Fixed
 
-- Bump JSON5 dependency to 2.2.2 to fix CVE-2022-46175. See PR [#232](https://github.com/dividab/tsconfig-paths/pull/232). Thanks to [@oparisblue](https://github.com/oparisblue) for this PR!
+- Bump JSON5 dependency to 2.2.2 to fix CVE-2022-46175. See PR [#232](https://github.com/jonaskello/tsconfig-paths/pull/232). Thanks to [@oparisblue](https://github.com/oparisblue) for this PR!
 
 ## [4.1.1] - 2022-11-30
 
 ### Fixed
 
-- Skip stat call / throwing an exception when source files don't exist. See PR [#225](https://github.com/dividab/tsconfig-paths/pull/225). Thanks to [@robstolarz](https://github.com/robstolarz) for this PR!
+- Skip stat call / throwing an exception when source files don't exist. See PR [#225](https://github.com/jonaskello/tsconfig-paths/pull/225). Thanks to [@robstolarz](https://github.com/robstolarz) for this PR!
 
 ## [4.1.0] - 2022-08-06
 
-- Add support for nested main field selectors #. See PR [#218](https://github.com/dividab/tsconfig-paths/pull/218). Thanks to [@aaronadamsCA](https://github.com/aaronadamsCA) for this PR!
+- Add support for nested main field selectors #. See PR [#218](https://github.com/jonaskello/tsconfig-paths/pull/218). Thanks to [@aaronadamsCA](https://github.com/aaronadamsCA) for this PR!
 
 ## [4.0.0] - 2022-05-02
 
 ### Changed
 
-- Ignore `--project`/`-P` CLI flag when explicit options are passed to `register`. See PR [#206](https://github.com/dividab/tsconfig-paths/pull/206).
-- Tolerate an undefined `baseUrl` compiler option. See PR [#208](https://github.com/dividab/tsconfig-paths/pull/208).
+- Ignore `--project`/`-P` CLI flag when explicit options are passed to `register`. See PR [#206](https://github.com/jonaskello/tsconfig-paths/pull/206).
+- Tolerate an undefined `baseUrl` compiler option. See PR [#208](https://github.com/jonaskello/tsconfig-paths/pull/208).
 
 ### Added
 
-- Add `cwd` option to `register` function that overrides where the `tsconfig.json` search begins. See PR [#205](https://github.com/dividab/tsconfig-paths/pull/205).
-- Add support for `jsconfig.json`. See PR [#199](https://github.com/dividab/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
-- Let `paths` mappings be absolute paths. See PR [#184](https://github.com/dividab/tsconfig-paths/pull/184).
-- Allow `baseUrl` in `tsconfig.json` to be an absolute path. See PR [#174](https://github.com/dividab/tsconfig-paths/pull/174). Thanks to [@nwalters512](https://github.com/nwalters512) for this PR!
+- Add `cwd` option to `register` function that overrides where the `tsconfig.json` search begins. See PR [#205](https://github.com/jonaskello/tsconfig-paths/pull/205).
+- Add support for `jsconfig.json`. See PR [#199](https://github.com/jonaskello/tsconfig-paths/pull/199). Thanks to [@F3n67u](https://github.com/F3n67u) for this PR!
+- Let `paths` mappings be absolute paths. See PR [#184](https://github.com/jonaskello/tsconfig-paths/pull/184).
+- Allow `baseUrl` in `tsconfig.json` to be an absolute path. See PR [#174](https://github.com/jonaskello/tsconfig-paths/pull/174). Thanks to [@nwalters512](https://github.com/nwalters512) for this PR!
 
 ## [3.14.1] - 2022-03-22
 
 ### Fixed
 
-- Use minimist 1.2.6 for all depencencies becuase of pollution vulnerability. See PR [#197](https://github.com/dividab/tsconfig-paths/pull/197). Thanks to [@gopijaganthan](https://github.com/gopijaganthan) for this fix!
+- Use minimist 1.2.6 for all depencencies becuase of pollution vulnerability. See PR [#197](https://github.com/jonaskello/tsconfig-paths/pull/197). Thanks to [@gopijaganthan](https://github.com/gopijaganthan) for this fix!
 
 ## [3.14.0] - 2022-03-13
 
 ### Added
 
-- Support for path mapping starting with `/`. See PR [#180](https://github.com/dividab/tsconfig-paths/pull/180), issue [#113](https://github.com/dividab/tsconfig-paths/issues/113), and issue [#128](https://github.com/dividab/tsconfig-paths/issues/128). Thanks to [@benevbright](https://github.com/benevbright) for this fix!
+- Support for path mapping starting with `/`. See PR [#180](https://github.com/jonaskello/tsconfig-paths/pull/180), issue [#113](https://github.com/jonaskello/tsconfig-paths/issues/113), and issue [#128](https://github.com/jonaskello/tsconfig-paths/issues/128). Thanks to [@benevbright](https://github.com/benevbright) for this fix!
 
 ## [3.13.0] - 2022-03-03
 
 ### Added
 
-- Include file extension in paths resolved from package.json "main" field. See PR [#135](https://github.com/dividab/tsconfig-paths/pull/135) and issue [#133](https://github.com/dividab/tsconfig-paths/issues/133). Thanks to [@katywings](https://github.com/katywings) for this fix!
+- Include file extension in paths resolved from package.json "main" field. See PR [#135](https://github.com/jonaskello/tsconfig-paths/pull/135) and issue [#133](https://github.com/jonaskello/tsconfig-paths/issues/133). Thanks to [@katywings](https://github.com/katywings) for this fix!
 
 ## [3.12.0] - 2021-08-24
 
@@ -104,85 +104,85 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Make extension config override instead of deep merge. See PR [#95](https://github.com/dividab/tsconfig-paths/pull/95) and issue [#94](https://github.com/dividab/tsconfig-paths/issues/94). Thanks to [@OliverJAsh](https://github.com/OliverJAsh) for this addition!
+- Make extension config override instead of deep merge. See PR [#95](https://github.com/jonaskello/tsconfig-paths/pull/95) and issue [#94](https://github.com/jonaskello/tsconfig-paths/issues/94). Thanks to [@OliverJAsh](https://github.com/OliverJAsh) for this addition!
 
 ## [3.8.0] - 2019-02-05
 
 ### Added
 
-- Add option to avoid adding a match-all rule. See PR [#73](https://github.com/dividab/tsconfig-paths/pull/73) and issue [72](https://github.com/dividab/tsconfig-paths/issues/72). Thanks to [@Swatinem](https://github.com/Swatinem) for this addition!
+- Add option to avoid adding a match-all rule. See PR [#73](https://github.com/jonaskello/tsconfig-paths/pull/73) and issue [72](https://github.com/jonaskello/tsconfig-paths/issues/72). Thanks to [@Swatinem](https://github.com/Swatinem) for this addition!
 
 ## [3.7.0] - 2018-11-11
 
 ### Added
 
-- Allow cleanup of register(). See PR [#64](https://github.com/dividab/tsconfig-paths/pull/64) and issue [63](https://github.com/dividab/tsconfig-paths/issues/63). Thanks to [@TylorS](https://github.com/TylorS) for this addition!
+- Allow cleanup of register(). See PR [#64](https://github.com/jonaskello/tsconfig-paths/pull/64) and issue [63](https://github.com/jonaskello/tsconfig-paths/issues/63). Thanks to [@TylorS](https://github.com/TylorS) for this addition!
 
 ## [3.6.0] - 2018-09-10
 
 ### Added
 
-- Prefer Node's core modules over file modules. See PR [#60](https://github.com/dividab/tsconfig-paths/pull/60) and issue [56](https://github.com/dividab/tsconfig-paths/issues/56). Thanks to @ljani for this addition!
+- Prefer Node's core modules over file modules. See PR [#60](https://github.com/jonaskello/tsconfig-paths/pull/60) and issue [56](https://github.com/jonaskello/tsconfig-paths/issues/56). Thanks to @ljani for this addition!
 
 ## [3.5.0] - 2018-07-28
 
 ### Added
 
-- Add support for trailing commas in tsconfig.json (use JSON5 to parse). See issue [#48](https://github.com/dividab/tsconfig-paths/issues/48), and PR [#58](https://github.com/dividab/tsconfig-paths/pull/58). Thanks to [@JakobJingleheimer](https://github.com/JakobJingleheimer) for this addition!
+- Add support for trailing commas in tsconfig.json (use JSON5 to parse). See issue [#48](https://github.com/jonaskello/tsconfig-paths/issues/48), and PR [#58](https://github.com/jonaskello/tsconfig-paths/pull/58). Thanks to [@JakobJingleheimer](https://github.com/JakobJingleheimer) for this addition!
 
 ## [3.4.2] - 2018-06-30
 
 ### Fixed
 
-- Do not resolve directories, only files, sse issue [#51](https://github.com/dividab/tsconfig-paths/issues/51).
+- Do not resolve directories, only files, sse issue [#51](https://github.com/jonaskello/tsconfig-paths/issues/51).
 
 ## [3.4.1] - 2018-06-24
 
 ### Fixed
 
-- Ignore field name mappings in package.json files that are not paths of existing files [#46](https://github.com/dividab/tsconfig-paths/pull/45). Thanks to [@christoffer](https://github.com/christoffer) for this fix!
+- Ignore field name mappings in package.json files that are not paths of existing files [#46](https://github.com/jonaskello/tsconfig-paths/pull/45). Thanks to [@christoffer](https://github.com/christoffer) for this fix!
 
 ## [3.4.0] - 2018-06-12
 
 ### Added
 
-- Add support for providing a list of field names to try instead of just using "main", [#45](https://github.com/dividab/tsconfig-paths/pull/45). Thanks to [@christoffer-dropbox](https://github.com/christoffer-dropbox) for this addition!
+- Add support for providing a list of field names to try instead of just using "main", [#45](https://github.com/jonaskello/tsconfig-paths/pull/45). Thanks to [@christoffer-dropbox](https://github.com/christoffer-dropbox) for this addition!
 
 ## [3.3.2] - 2018-05-07
 
 ### Fixed
 
-- Adding json file extension to extends property, [#40](https://github.com/dividab/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
+- Adding json file extension to extends property, [#40](https://github.com/jonaskello/tsconfig-paths/pull/40). Thanks to [@cwhite-connectfirst](https://github.com/cwhite-connectfirst) for this fixing this!
 
 ## [3.3.1] - 2018-04-17
 
 ### Fixed
 
-- Fix project undefined error when calling register, [#37](https://github.com/dividab/tsconfig-paths/issues/37). Thanks to [@natedanner](https://github.com/natedanner) for this fixing this!
+- Fix project undefined error when calling register, [#37](https://github.com/jonaskello/tsconfig-paths/issues/37). Thanks to [@natedanner](https://github.com/natedanner) for this fixing this!
 
 ## [3.3.0] - 2018-04-14
 
 ### Added
 
-- Add possibility to indicate explicitly tsconfig location, [#35](https://github.com/dividab/tsconfig-paths/issues/35). Thanks to [@procopenco](https://github.com/procopenco) for this adding this!
+- Add possibility to indicate explicitly tsconfig location, [#35](https://github.com/jonaskello/tsconfig-paths/issues/35). Thanks to [@procopenco](https://github.com/procopenco) for this adding this!
 
 ## [3.2.0] - 2018-03-31
 
 ### Added
 
-- Added support for passing a filename as cwd, see issue [#31](https://github.com/dividab/tsconfig-paths/issues/31) and PR [#32](https://github.com/dividab/tsconfig-paths/pull/32). Thanks to [@amodm](https://github.com/amodm) for this adding this!
+- Added support for passing a filename as cwd, see issue [#31](https://github.com/jonaskello/tsconfig-paths/issues/31) and PR [#32](https://github.com/jonaskello/tsconfig-paths/pull/32). Thanks to [@amodm](https://github.com/amodm) for this adding this!
 
 ## [3.1.3] - 2018-03-14
 
 ### Fixed
 
-- Fix async recursion, see [#30](https://github.com/dividab/tsconfig-paths/pull/30). Thanks to [@Nayni](https://github.com/Nayni) for this fix!
+- Fix async recursion, see [#30](https://github.com/jonaskello/tsconfig-paths/pull/30). Thanks to [@Nayni](https://github.com/Nayni) for this fix!
 
 ## [3.1.2] - 2018-03-13
 
 ### Fixed
 
-- Fix a forgotten return when doneCallback is invoked, see [#29](https://github.com/dividab/tsconfig-paths/pull/29). Thanks to [@Nayni](https://github.com/Nayni) for this fix!
+- Fix a forgotten return when doneCallback is invoked, see [#29](https://github.com/jonaskello/tsconfig-paths/pull/29). Thanks to [@Nayni](https://github.com/Nayni) for this fix!
 
 ## [3.1.1] - 2018-01-13
 
@@ -212,7 +212,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Only resolve path if tsconfig present [#25](https://github.com/dividab/tsconfig-paths/pull/25). Thanks to @nicoschoenmaker for the PR.
+- Only resolve path if tsconfig present [#25](https://github.com/jonaskello/tsconfig-paths/pull/25). Thanks to @nicoschoenmaker for the PR.
 
 ## [2.7.2]
 
@@ -230,7 +230,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Support `baseUrl` to exist in base tsconfig.json when using `extends`, see [#23](https://github.com/dividab/tsconfig-paths/issues/23).
+- Support `baseUrl` to exist in base tsconfig.json when using `extends`, see [#23](https://github.com/jonaskello/tsconfig-paths/issues/23).
 
 ## [2.6.0]
 
@@ -260,7 +260,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Include declaration files. Fixes [#22](https://github.com/dividab/tsconfig-paths/issues/22).
+- Include declaration files. Fixes [#22](https://github.com/jonaskello/tsconfig-paths/issues/22).
 
 ## [2.4.0]
 
@@ -270,38 +270,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Support for config inheritance with `extends`. Fixes [#17](https://github.com/dividab/tsconfig-paths/issues/17).
+- Support for config inheritance with `extends`. Fixes [#17](https://github.com/jonaskello/tsconfig-paths/issues/17).
 
 ## [2.2.0]
 
 ### Fixed
 
-- Fixed issue [#7](https://github.com/dividab/tsconfig-paths/issues/7).
+- Fixed issue [#7](https://github.com/jonaskello/tsconfig-paths/issues/7).
 
 ## [2.1.2]
 
 ### Fixed
 
-- Fixed issue [#6](https://github.com/dividab/tsconfig-paths/issues/6).
+- Fixed issue [#6](https://github.com/jonaskello/tsconfig-paths/issues/6).
 
 ## [2.1.1]
 
 ### Fixed
 
-- Fixed issue [#4](https://github.com/dividab/tsconfig-paths/issues/4)
+- Fixed issue [#4](https://github.com/jonaskello/tsconfig-paths/issues/4)
 
 ## [2.1.0]
 
 ### Fixed
 
-- Fixed issue [#3](https://github.com/dividab/tsconfig-paths/issues/3)
+- Fixed issue [#3](https://github.com/jonaskello/tsconfig-paths/issues/3)
 
 ## [2.0.0]
 
 ### Added
 
 - We now look at `process.env.TS_NODE_PROJECT`
-- Functionality to bootstrap tsconfig-paths. Documentation in [README](https://github.com/dividab/tsconfig-paths/blob/master/README.md)
+- Functionality to bootstrap tsconfig-paths. Documentation in [README](https://github.com/jonaskello/tsconfig-paths/blob/master/README.md)
 
 ### Changed
 
@@ -374,34 +374,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial version.
 
-[unreleased]: https://github.com/dividab/tsconfig-paths/compare/v3.9.0...master
-[3.9.0]: https://github.com/dividab/tsconfig-paths/compare/v3.8.0...v3.9.0
-[3.8.0]: https://github.com/dividab/tsconfig-paths/compare/3.7.0...3.8.0
-[3.7.0]: https://github.com/dividab/tsconfig-paths/compare/3.6.0...3.7.0
-[3.6.0]: https://github.com/dividab/tsconfig-paths/compare/3.5.0...3.6.0
-[3.5.0]: https://github.com/dividab/tsconfig-paths/compare/3.4.2...3.5.0
-[3.4.2]: https://github.com/dividab/tsconfig-paths/compare/3.4.1...3.4.2
-[3.4.1]: https://github.com/dividab/tsconfig-paths/compare/3.4.0...3.4.1
-[3.4.0]: https://github.com/dividab/tsconfig-paths/compare/3.3.2...3.4.0
-[3.3.2]: https://github.com/dividab/tsconfig-paths/compare/3.3.1...3.3.2
-[3.3.1]: https://github.com/dividab/tsconfig-paths/compare/3.3.0...3.3.1
-[3.3.0]: https://github.com/dividab/tsconfig-paths/compare/3.2.0...3.3.0
-[3.2.0]: https://github.com/dividab/tsconfig-paths/compare/3.1.3...3.2.0
-[3.1.3]: https://github.com/dividab/tsconfig-paths/compare/3.1.2...3.1.3
-[3.1.2]: https://github.com/dividab/tsconfig-paths/compare/3.1.1...3.1.2
-[3.1.1]: https://github.com/dividab/tsconfig-paths/compare/3.1.0...3.1.1
-[3.1.0]: https://github.com/dividab/tsconfig-paths/compare/3.0.0...3.1.0
-[3.0.0]: https://github.com/dividab/tsconfig-paths/compare/2.7.3...3.0.0
-[2.7.3]: https://github.com/dividab/tsconfig-paths/compare/2.7.2...2.7.3
-[2.7.2]: https://github.com/dividab/tsconfig-paths/compare/2.7.1...2.7.2
-[2.7.1]: https://github.com/dividab/tsconfig-paths/compare/2.7.0...2.7.1
-[2.7.0]: https://github.com/dividab/tsconfig-paths/compare/2.6.0...2.7.0
-[2.6.0]: https://github.com/dividab/tsconfig-paths/compare/2.5.0...2.6.0
-[2.5.0]: https://github.com/dividab/tsconfig-paths/compare/2.4.3...2.5.0
-[2.4.3]: https://github.com/dividab/tsconfig-paths/compare/2.4.2...2.4.3
-[2.4.2]: https://github.com/dividab/tsconfig-paths/compare/2.4.1...2.4.2
-[2.4.1]: https://github.com/dividab/tsconfig-paths/compare/2.4.0...2.4.1
-[2.4.0]: https://github.com/dividab/tsconfig-paths/compare/2.2.0...2.4.0
-[2.2.0]: https://github.com/dividab/tsconfig-paths/compare/2.1.2...2.2.0
-[2.1.2]: https://github.com/dividab/tsconfig-paths/compare/2.1.1...2.1.2
-[2.1.1]: https://github.com/dividab/tsconfig-paths/compare/2.1.0...2.1.1
+[unreleased]: https://github.com/jonaskello/tsconfig-paths/compare/v3.9.0...master
+[3.9.0]: https://github.com/jonaskello/tsconfig-paths/compare/v3.8.0...v3.9.0
+[3.8.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.7.0...3.8.0
+[3.7.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.6.0...3.7.0
+[3.6.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.5.0...3.6.0
+[3.5.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.4.2...3.5.0
+[3.4.2]: https://github.com/jonaskello/tsconfig-paths/compare/3.4.1...3.4.2
+[3.4.1]: https://github.com/jonaskello/tsconfig-paths/compare/3.4.0...3.4.1
+[3.4.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.3.2...3.4.0
+[3.3.2]: https://github.com/jonaskello/tsconfig-paths/compare/3.3.1...3.3.2
+[3.3.1]: https://github.com/jonaskello/tsconfig-paths/compare/3.3.0...3.3.1
+[3.3.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.2.0...3.3.0
+[3.2.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.1.3...3.2.0
+[3.1.3]: https://github.com/jonaskello/tsconfig-paths/compare/3.1.2...3.1.3
+[3.1.2]: https://github.com/jonaskello/tsconfig-paths/compare/3.1.1...3.1.2
+[3.1.1]: https://github.com/jonaskello/tsconfig-paths/compare/3.1.0...3.1.1
+[3.1.0]: https://github.com/jonaskello/tsconfig-paths/compare/3.0.0...3.1.0
+[3.0.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.7.3...3.0.0
+[2.7.3]: https://github.com/jonaskello/tsconfig-paths/compare/2.7.2...2.7.3
+[2.7.2]: https://github.com/jonaskello/tsconfig-paths/compare/2.7.1...2.7.2
+[2.7.1]: https://github.com/jonaskello/tsconfig-paths/compare/2.7.0...2.7.1
+[2.7.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.6.0...2.7.0
+[2.6.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.5.0...2.6.0
+[2.5.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.4.3...2.5.0
+[2.4.3]: https://github.com/jonaskello/tsconfig-paths/compare/2.4.2...2.4.3
+[2.4.2]: https://github.com/jonaskello/tsconfig-paths/compare/2.4.1...2.4.2
+[2.4.1]: https://github.com/jonaskello/tsconfig-paths/compare/2.4.0...2.4.1
+[2.4.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.2.0...2.4.0
+[2.2.0]: https://github.com/jonaskello/tsconfig-paths/compare/2.1.2...2.2.0
+[2.1.2]: https://github.com/jonaskello/tsconfig-paths/compare/2.1.1...2.1.2
+[2.1.1]: https://github.com/jonaskello/tsconfig-paths/compare/2.1.0...2.1.1
