@@ -6,6 +6,7 @@ export interface ExplicitParams {
   paths: { [key: string]: Array<string> };
   mainFields?: (string | string[])[];
   addMatchAll?: boolean;
+  matchAfterOriginal?: boolean;
 }
 
 export type TsConfigLoader = (
@@ -26,6 +27,7 @@ export interface ConfigLoaderSuccessResult {
   paths: { [key: string]: Array<string> };
   mainFields?: (string | string[])[];
   addMatchAll?: boolean;
+  matchAfterOriginal?: boolean;
 }
 
 export interface ConfigLoaderFailResult {
@@ -59,6 +61,7 @@ export function configLoader({
       paths: explicitParams.paths,
       mainFields: explicitParams.mainFields,
       addMatchAll: explicitParams.addMatchAll,
+      matchAfterOriginal: explicitParams.matchAfterOriginal
     };
   }
 

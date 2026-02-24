@@ -106,6 +106,21 @@ export function register(params?: RegisterParams): () => void {
   Module._resolveFilename = function (request: string, _parent: any): string {
     const isCoreModule = coreModules.hasOwnProperty(request);
     if (!isCoreModule) {
+      if (configLoaderResult.matchAfterOriginal) {
+        let originalFound;
+
+        try {
+          // tslint:disable-next-line:no-invalid-this
+          originalFound = originalResolveFilename.apply(this, arguments);
+        } catch (e) {
+          // noop
+        }
+
+        if (originalFound) {
+          return originalFound;
+        }
+      }
+
       const found = matchPath(request);
       if (found) {
         const modifiedArguments = [found, ...[].slice.call(arguments, 1)]; // Passes all arguments. Even those that is not specified above.
