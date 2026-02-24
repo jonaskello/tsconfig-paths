@@ -3,8 +3,10 @@ import { MappingEntry } from "./mapping-entry";
 import { dirname } from "path";
 import { removeExtension } from "./filesystem";
 
+type TryPathType = "file" | "extension" | "index" | "package"
+
 export interface TryPath {
-  readonly type: "file" | "extension" | "index" | "package";
+  readonly type: TryPathType;
   readonly path: string;
 }
 
@@ -64,7 +66,18 @@ export function getPathsToTry(
       }
     }
   }
-  return pathsToTry.length === 0 ? undefined : pathsToTry;
+
+  // Cluster the try paths by type, and order them by most likely to get a hit
+  const sortWeights: Record<TryPathType, number>  = {
+    file: 3,
+    extension: 1,
+    index: 2,
+    package: 4
+  }
+
+  return pathsToTry.length === 0 ? undefined : pathsToTry.sort((a: TryPath, b: TryPath) =>
+    sortWeights[a.type] - sortWeights[b.type]
+  );
 }
 
 // Not sure why we don't just return the full found path?
