@@ -52,6 +52,7 @@ export function createMatchPath(
     );
 }
 
+const matchFromAbsolutePathsCache = new Map(); // This is a very hot path for most apps, so we want to cache calls into it
 /**
  * Finds a path from tsconfig that matches a module load request.
  *
@@ -69,19 +70,29 @@ export function matchFromAbsolutePaths(
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
   extensions: Array<string> = Object.keys(require.extensions),
-  mainFields: (string | string[])[] = ["main"]
+  mainFields: (string | string[])[] = ['main'],
 ): string | undefined {
-  const tryPaths = TryPath.getPathsToTry(
+  // Create stable cache keys for future invocations
+  const cacheKey = [
+    absolutePathMappings.map(mapping => `${mapping.pattern}:${mapping.paths.join('')}`),
     extensions,
-    absolutePathMappings,
-    requestedModule
-  );
+    requestedModule,
+  ].join('|');
+
+  if (matchFromAbsolutePathsCache.has(cacheKey)) {
+    return matchFromAbsolutePathsCache.get(cacheKey);
+  }
+
+  const tryPaths = TryPath.getPathsToTry(extensions, absolutePathMappings, requestedModule);
 
   if (!tryPaths) {
+    matchFromAbsolutePathsCache.set(cacheKey, undefined);
     return undefined;
   }
 
-  return findFirstExistingPath(tryPaths, readJson, fileExists, mainFields);
+  const path = findFirstExistingPath(tryPaths, readJson, fileExists, mainFields);
+  matchFromAbsolutePathsCache.set(cacheKey, path);
+  return path;
 }
 
 function findFirstExistingMainFieldMappedFile(
