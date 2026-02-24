@@ -13,14 +13,34 @@ describe("match-path-async", () => {
       matchPath(
         t.requestedModule,
         (_path, callback) => callback(undefined, t.packageJson),
-        (path, callback) =>
-          callback(undefined, t.existingFiles.indexOf(path) !== -1),
+        (path, callback) => {
+          console.log("matchPath", path, t.existingFiles);
+          callback(undefined, t.existingFiles.indexOf(path) !== -1);
+        },
         t.extensions,
         (_err, result) => {
+          console.log("result:", _err, result);
           expect(result).toBe(t.expectedPath);
           done();
         }
       );
     })
   );
+  it("should resolve main file in the root directory", (done) => {
+    const absoluteBaseUrl = "/";
+    const requestedModule = "/src/main.ts";
+    const expectedPath = "/src/main.ts";
+    const matchPath = createMatchPathAsync(absoluteBaseUrl, {}, [], true);
+    matchPath(
+      requestedModule,
+      (_path, callback) => callback(undefined, {}),
+      (path, callback) =>
+        callback(undefined, expectedPath.indexOf(path) !== -1),
+      ["*.ts", "*.tsx"],
+      (_err, result) => {
+        expect(result).toBe(expectedPath);
+        done();
+      }
+    );
+  });
 });
