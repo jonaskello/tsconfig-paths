@@ -1,4 +1,5 @@
 import * as TsConfigLoader2 from "./tsconfig-loader";
+import { MatchPath, createMatchPath } from "./match-path-sync";
 import * as path from "path";
 
 export interface ExplicitParams {
@@ -85,5 +86,37 @@ export function configLoader({
     ),
     paths: loadResult.paths || {},
     addMatchAll: loadResult.baseUrl !== undefined,
+  };
+}
+
+export function findConfigMatcher({
+  cwd,
+  explicitParams,
+}: ConfigLoaderParams):
+  | { config: ConfigLoaderSuccessResult; matchPath: MatchPath }
+  | undefined {
+  const configLoaderResult = configLoader({
+    cwd,
+    explicitParams,
+  });
+
+  if (configLoaderResult.resultType === "failed") {
+    console.warn(
+      "".concat(configLoaderResult.message, ". tsconfig-paths will be skipped")
+    );
+
+    return;
+  }
+
+  const matchPath = createMatchPath(
+    configLoaderResult.absoluteBaseUrl,
+    configLoaderResult.paths,
+    configLoaderResult.mainFields,
+    configLoaderResult.addMatchAll
+  );
+
+  return {
+    config: configLoaderResult,
+    matchPath,
   };
 }
