@@ -111,5 +111,5 @@ function matchStar(pattern: string, search: string): string | undefined {
   if (search.substr(search.length - part2.length) !== part2) {
     return undefined;
   }
-  return search.substr(star, search.length - part2.length);
+  return search.substring(star, search.length - part2.length);
 }
