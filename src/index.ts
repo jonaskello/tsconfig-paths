@@ -12,10 +12,16 @@ export {
 export { register } from "./register";
 export {
   loadConfig,
+  configLoader,
   ConfigLoaderResult,
   ConfigLoaderSuccessResult,
   ConfigLoaderFailResult,
+  ConfigLoaderParams,
+  ExplicitParams,
 } from "./config-loader";
+export {
+  tsConfigLoader
+} from './tsconfig-loader'
 export {
   ReadJsonSync,
   ReadJsonAsync,
