@@ -6,6 +6,7 @@ export interface ExplicitParams {
   paths: { [key: string]: Array<string> };
   mainFields?: (string | string[])[];
   addMatchAll?: boolean;
+  extensions?: ReadonlyArray<string>
 }
 
 export type TsConfigLoader = (

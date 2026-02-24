@@ -93,7 +93,8 @@ export function register(params?: RegisterParams): () => void {
     configLoaderResult.absoluteBaseUrl,
     configLoaderResult.paths,
     configLoaderResult.mainFields,
-    configLoaderResult.addMatchAll
+    configLoaderResult.addMatchAll,
+    explicitParams?.extensions,
   );
 
   // Patch node's module loading

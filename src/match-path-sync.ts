@@ -28,7 +28,8 @@ export function createMatchPath(
   absoluteBaseUrl: string,
   paths: { [key: string]: Array<string> },
   mainFields: (string | string[])[] = ["main"],
-  addMatchAll: boolean = true
+  addMatchAll: boolean = true,
+  extensions?: ReadonlyArray<string>
 ): MatchPath {
   const absolutePaths = MappingEntry.getAbsoluteMappingEntries(
     absoluteBaseUrl,
@@ -40,7 +41,6 @@ export function createMatchPath(
     requestedModule: string,
     readJson?: Filesystem.ReadJsonSync,
     fileExists?: Filesystem.FileExistsSync,
-    extensions?: Array<string>
   ) =>
     matchFromAbsolutePaths(
       absolutePaths,
@@ -68,7 +68,7 @@ export function matchFromAbsolutePaths(
   requestedModule: string,
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
-  extensions: Array<string> = Object.keys(require.extensions),
+  extensions: ReadonlyArray<string> = Object.keys(require.extensions),
   mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
   const tryPaths = TryPath.getPathsToTry(
