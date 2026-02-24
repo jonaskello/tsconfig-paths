@@ -1,9 +1,6 @@
-import {
-  loadTsconfig,
-  tsConfigLoader,
-  walkForTsConfig,
-} from "../tsconfig-loader";
-import { join } from "path";
+import { tsConfigLoader, walkForTsConfig } from "../tsconfig-loader";
+import { join, resolve } from "path";
+import { getTsconfig } from "get-tsconfig";
 
 describe("tsconfig-loader", () => {
   it("should find tsconfig in cwd", () => {
@@ -167,262 +164,135 @@ describe("walkForTsConfig", () => {
   });
 });
 
-describe("loadConfig", () => {
+describe("loadSyncDefault", () => {
   it("should load a config", () => {
-    const config = { compilerOptions: { baseUrl: "hej" } };
-    const res = loadTsconfig(
-      "/root/dir1/tsconfig.json",
-      (path) => path === "/root/dir1/tsconfig.json",
-      (_) => JSON.stringify(config)
-    );
-    expect(res).toStrictEqual(config);
-  });
+    const cwd = resolve(__dirname, "../../example/basic")
 
-  it("should load a config with comments", () => {
-    const config = { compilerOptions: { baseUrl: "hej" } };
-    const res = loadTsconfig(
-      "/root/dir1/tsconfig.json",
-      (path) => path === "/root/dir1/tsconfig.json",
-      (_) => `{
-          // my comment
-          "compilerOptions": { 
-            "baseUrl": "hej"
-          }
-        }`
-    );
-    expect(res).toStrictEqual(config);
-  });
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
 
-  it("should load a config with trailing commas", () => {
-    const config = { compilerOptions: { baseUrl: "hej" } };
-    const res = loadTsconfig(
-      "/root/dir1/tsconfig.json",
-      (path) => path === "/root/dir1/tsconfig.json",
-      (_) => `{
-          "compilerOptions": { 
-            "baseUrl": "hej",
-          },
-        }`
-    );
-    expect(res).toStrictEqual(config);
-  });
-
-  it("should throw an error including the file path when encountering invalid JSON5", () => {
-    expect(() =>
-      loadTsconfig(
-        "/root/dir1/tsconfig.json",
-        (path) => path === "/root/dir1/tsconfig.json",
-        (_) => `{
-            "compilerOptions": {
-          }`
-      )
-    ).toThrowError(
-      "/root/dir1/tsconfig.json is malformed JSON5: invalid end of input at 3:12"
-    );
-  });
-
-  it("should load a config with string extends and overwrite all options", () => {
-    const firstConfig = {
-      extends: "../base-config.json",
-      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } },
-    };
-    const firstConfigPath = join("/root", "dir1", "tsconfig.json");
-    const baseConfig = {
-      compilerOptions: {
-        baseUrl: "olle",
-        paths: { foo: ["bar1"] },
-        strict: true,
-      },
-    };
-    const baseConfigPath = join("/root", "base-config.json");
-    const res = loadTsconfig(
-      join("/root", "dir1", "tsconfig.json"),
-      (path) => path === firstConfigPath || path === baseConfigPath,
-      (path) => {
-        if (path === firstConfigPath) {
-          return JSON.stringify(firstConfig);
-        }
-        if (path === baseConfigPath) {
-          return JSON.stringify(baseConfig);
-        }
-        return "";
-      }
-    );
-
-    expect(res).toEqual({
-      extends: "../base-config.json",
-      compilerOptions: {
-        baseUrl: "kalle",
-        paths: { foo: ["bar2"] },
-        strict: true,
-      },
+    expect(result).toEqual({
+      baseUrl: "./hej",
+      paths: {},
+      tsConfigPath: resolve(cwd, "tsconfig.json"),
     });
   });
 
-  it("should load a config with string extends from node_modules and overwrite all options", () => {
-    const firstConfig = {
-      extends: "my-package/base-config.json",
-      compilerOptions: { baseUrl: "kalle", paths: { foo: ["bar2"] } },
-    };
-    const firstConfigPath = join("/root", "dir1", "tsconfig.json");
-    const baseConfig = {
-      compilerOptions: {
-        baseUrl: "olle",
-        paths: { foo: ["bar1"] },
-        strict: true,
-      },
-    };
-    const baseConfigPath = join(
-      "/root",
-      "dir1",
-      "node_modules",
-      "my-package",
-      "base-config.json"
-    );
-    const res = loadTsconfig(
-      join("/root", "dir1", "tsconfig.json"),
-      (path) => path === firstConfigPath || path === baseConfigPath,
-      (path) => {
-        if (path === firstConfigPath) {
-          return JSON.stringify(firstConfig);
-        }
-        if (path === baseConfigPath) {
-          return JSON.stringify(baseConfig);
-        }
-        return "";
-      }
-    );
+  it("should load a config with comments", () => {
+    const cwd = resolve(__dirname, "../../example/with-comments")
 
-    expect(res).toEqual({
-      extends: "my-package/base-config.json",
-      compilerOptions: {
-        baseUrl: "kalle",
-        paths: { foo: ["bar2"] },
-        strict: true,
-      },
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
+
+    expect(result).toEqual({
+      baseUrl: "./hej",
+      paths: {},
+      tsConfigPath: resolve(cwd, "tsconfig.json"),
+    });
+  });
+
+  it("should load a config with trailing commas", () => {
+    const cwd = resolve(__dirname, "../../example/with-trailing-commas")
+
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
+
+    expect(result).toEqual({
+      baseUrl: "./hej",
+      paths: {},
+      tsConfigPath: resolve(cwd, "tsconfig.json"),
+    });
+  });
+
+  it("should gracefully handle invalid JSON5", () => {
+    const cwd = resolve(__dirname, "../../example/invalid")
+
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
+
+    expect(result).toEqual({
+      baseUrl: undefined,
+      paths: { foo: ["bar"] },
+      tsConfigPath: resolve(cwd, "tsconfig.json")
     });
   });
 
   it("should use baseUrl relative to location of extended tsconfig", () => {
-    const firstConfig = { compilerOptions: { baseUrl: "." } };
-    const firstConfigPath = join("/root", "first-config.json");
-    const secondConfig = { extends: "../first-config.json" };
-    const secondConfigPath = join("/root", "dir1", "second-config.json");
-    const thirdConfig = { extends: "../second-config.json" };
-    const thirdConfigPath = join("/root", "dir1", "dir2", "third-config.json");
-    const res = loadTsconfig(
-      join("/root", "dir1", "dir2", "third-config.json"),
-      (path) =>
-        path === firstConfigPath ||
-        path === secondConfigPath ||
-        path === thirdConfigPath,
-      (path) => {
-        if (path === firstConfigPath) {
-          return JSON.stringify(firstConfig);
-        }
-        if (path === secondConfigPath) {
-          return JSON.stringify(secondConfig);
-        }
-        if (path === thirdConfigPath) {
-          return JSON.stringify(thirdConfig);
-        }
-        return "";
-      }
-    );
+    const cwd = resolve(__dirname, "../../example/resolve-closest/dir1/dir2")
 
-    expect(res).toEqual({
-      extends: "../second-config.json",
-      compilerOptions: { baseUrl: join("..", "..") },
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
+
+    expect(result).toEqual({
+      baseUrl: "../..",
+      paths: {},
+      tsConfigPath: resolve(cwd, "tsconfig.json")
     });
   });
 
   it("should load a config with array extends and overwrite all options", () => {
-    const baseConfig1 = {
-      compilerOptions: { baseUrl: ".", paths: { foo: ["bar"] } },
-    };
-    const baseConfig1Path = join("/root", "base-config-1.json");
-    const baseConfig2 = { compilerOptions: { baseUrl: "." } };
-    const baseConfig2Path = join("/root", "dir1", "base-config-2.json");
-    const baseConfig3 = {
-      compilerOptions: { baseUrl: ".", paths: { foo: ["bar2"] } },
-    };
-    const baseConfig3Path = join("/root", "dir1", "dir2", "base-config-3.json");
-    const actualConfig = {
-      extends: [
-        "./base-config-1.json",
-        "./dir1/base-config-2.json",
-        "./dir1/dir2/base-config-3.json",
-      ],
-    };
-    const actualConfigPath = join("/root", "tsconfig.json");
+    const cwd = resolve(__dirname, "../../example/extend-multiple")
 
-    const res = loadTsconfig(
-      join("/root", "tsconfig.json"),
-      (path) =>
-        [
-          baseConfig1Path,
-          baseConfig2Path,
-          baseConfig3Path,
-          actualConfigPath,
-        ].indexOf(path) >= 0,
-      (path) => {
-        if (path === baseConfig1Path) {
-          return JSON.stringify(baseConfig1);
-        }
-        if (path === baseConfig2Path) {
-          return JSON.stringify(baseConfig2);
-        }
-        if (path === baseConfig3Path) {
-          return JSON.stringify(baseConfig3);
-        }
-        if (path === actualConfigPath) {
-          return JSON.stringify(actualConfig);
-        }
-        return "";
-      }
-    );
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
 
-    expect(res).toEqual({
-      extends: [
-        "./base-config-1.json",
-        "./dir1/base-config-2.json",
-        "./dir1/dir2/base-config-3.json",
-      ],
-      compilerOptions: {
-        baseUrl: join("dir1", "dir2"),
-        paths: { foo: ["bar2"] },
-      },
+    expect(result).toEqual({
+      baseUrl: "./dir1/dir2",
+      paths: { foo: ["bar2"] },
+      tsConfigPath: resolve(cwd, "tsconfig.json")
     });
   });
 
   it("should load a config with array extends without .json extension", () => {
-    const baseConfig = {
-      compilerOptions: { baseUrl: ".", paths: { foo: ["bar"] } },
-    };
-    const baseConfigPath = join("/root", "base-config-1.json");
-    const actualConfig = { extends: ["./base-config-1"] };
-    const actualConfigPath = join("/root", "tsconfig.json");
+    const cwd = resolve(__dirname, "../../example/extend-without-extension")
 
-    const res = loadTsconfig(
-      join("/root", "tsconfig.json"),
-      (path) => [baseConfigPath, actualConfigPath].indexOf(path) >= 0,
-      (path) => {
-        if (path === baseConfigPath) {
-          return JSON.stringify(baseConfig);
-        }
-        if (path === actualConfigPath) {
-          return JSON.stringify(actualConfig);
-        }
-        return "";
-      }
-    );
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
 
-    expect(res).toEqual({
-      extends: ["./base-config-1"],
-      compilerOptions: {
-        baseUrl: ".",
-        paths: { foo: ["bar"] },
+    expect(result).toEqual({
+      baseUrl: "./",
+      paths: { foo: ["bar"] },
+      tsConfigPath: resolve(cwd, "tsconfig.json")
+    });
+  });
+
+  it("should resolve multiple levels of tsconfig extension", () => {
+    const cwd = resolve(__dirname, "../../example/inherited");
+    const result = tsConfigLoader({ cwd, getEnv: () => undefined });
+
+    expect(result).toEqual({
+      baseUrl: undefined,
+      paths: { "@": [] },
+      tsConfigPath: resolve(cwd, "tsconfig.json"),
+    });
+  });
+});
+
+describe("getTsconfig", () => {
+  it("should load a config with string extends and overwrite all options", () => {
+    const tsConfigPath = resolve(__dirname, "../../example/extend-overwrite/nested/tsconfig.json");
+
+    const result = getTsconfig(tsConfigPath);
+
+    expect(result).toEqual({
+      config: {
+        compilerOptions: {
+          baseUrl: "./kalle",
+          paths: { foo: ["bar2"] },
+          strict: true,
+        }
       },
+      path: tsConfigPath
+    });
+  });
+
+  it("should load a config with string extends from node_modules and overwrite all options", () => {
+    const tsConfigPath = resolve(__dirname, "../../example/extend-node-module/tsconfig.json")
+
+    const result = getTsconfig(tsConfigPath);
+
+    expect(result).toEqual({
+      config: {
+        compilerOptions: {
+          baseUrl: "./kalle",
+          paths: { foo: ["bar2"] },
+          strict: true,
+        }
+      },
+      path: tsConfigPath
     });
   });
 });

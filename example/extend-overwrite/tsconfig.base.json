@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "olle",
+    "paths": {
+      "foo": [
+        "bar1"
+      ]
+    },
+    "strict": true
+  }
+}

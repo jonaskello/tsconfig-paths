@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "kalle",
+    "paths": {
+      "foo": [
+        "bar2"
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  // my comment
+  "compilerOptions": { 
+    "baseUrl": "hej"
+  }
+}
