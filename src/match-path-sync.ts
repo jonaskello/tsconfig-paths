@@ -68,7 +68,7 @@ export function matchFromAbsolutePaths(
   requestedModule: string,
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
-  extensions: Array<string> = Object.keys(require.extensions),
+  extensions: Array<string> = ['.ts','.tsx','.js','.jsx','.mjs','.cjs','.json','.node'],
   mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
   const tryPaths = TryPath.getPathsToTry(

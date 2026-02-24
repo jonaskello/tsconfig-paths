@@ -62,7 +62,7 @@ export function matchFromAbsolutePathsAsync(
   requestedModule: string,
   readJson: Filesystem.ReadJsonAsync = Filesystem.readJsonFromDiskAsync,
   fileExists: Filesystem.FileExistsAsync = Filesystem.fileExistsAsync,
-  extensions: ReadonlyArray<string> = Object.keys(require.extensions),
+  extensions: ReadonlyArray<string> = ['.ts','.tsx','.js','.jsx','.mjs','.cjs','.json','.node'],
   callback: MatchPathAsyncCallback,
   mainFields: (string | string[])[] = ["main"]
 ): void {
