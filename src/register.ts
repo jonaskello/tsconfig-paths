@@ -95,6 +95,7 @@ export function register(params?: RegisterParams): () => void {
     configLoaderResult.mainFields,
     configLoaderResult.addMatchAll
   );
+  const matchPathCache: Record<string, string | undefined> = {};
 
   // Patch node's module loading
   // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
@@ -106,7 +107,10 @@ export function register(params?: RegisterParams): () => void {
   Module._resolveFilename = function (request: string, _parent: any): string {
     const isCoreModule = coreModules.hasOwnProperty(request);
     if (!isCoreModule) {
-      const found = matchPath(request);
+      if (!(request in matchPathCache)) {
+        matchPathCache[request] = matchPath(request);
+      }
+      const found = matchPathCache[request];
       if (found) {
         const modifiedArguments = [found, ...[].slice.call(arguments, 1)]; // Passes all arguments. Even those that is not specified above.
         return originalResolveFilename.apply(this, modifiedArguments);
