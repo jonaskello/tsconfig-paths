@@ -3,6 +3,8 @@ import * as TryPath from "./try-path";
 import * as MappingEntry from "./mapping-entry";
 import * as Filesystem from "./filesystem";
 
+const defaultExtensions = [".js", ".json", ".node"];
+
 /**
  * Function that can match a path async
  */
@@ -62,7 +64,10 @@ export function matchFromAbsolutePathsAsync(
   requestedModule: string,
   readJson: Filesystem.ReadJsonAsync = Filesystem.readJsonFromDiskAsync,
   fileExists: Filesystem.FileExistsAsync = Filesystem.fileExistsAsync,
-  extensions: ReadonlyArray<string> = Object.keys(require.extensions),
+  extensions: ReadonlyArray<string> = Object.keys(require.extensions || {})
+    .length
+    ? Object.keys(require.extensions || {})
+    : defaultExtensions,
   callback: MatchPathAsyncCallback,
   mainFields: (string | string[])[] = ["main"]
 ): void {

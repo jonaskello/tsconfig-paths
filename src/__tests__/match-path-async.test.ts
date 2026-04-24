@@ -23,4 +23,29 @@ describe("match-path-async", () => {
       );
     })
   );
+
+  it("does not fail when require.extensions is unavailable", (done) => {
+    const patchedRequire = require as typeof require & {
+      extensions?: typeof require.extensions;
+    };
+    const originalExtensions = patchedRequire.extensions;
+    patchedRequire.extensions = undefined;
+
+    try {
+      const matchPath = createMatchPathAsync("/base", {});
+      matchPath(
+        "missing-module",
+        undefined,
+        undefined,
+        undefined,
+        (err, result) => {
+          expect(err).toBeUndefined();
+          expect(result).toBeUndefined();
+          done();
+        }
+      );
+    } finally {
+      patchedRequire.extensions = originalExtensions;
+    }
+  });
 });

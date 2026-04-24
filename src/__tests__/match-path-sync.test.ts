@@ -19,4 +19,19 @@ describe("match-path-sync", () => {
       expect(result).toBe(t.expectedPath);
     })
   );
+
+  it("does not throw when require.extensions is unavailable", () => {
+    const patchedRequire = require as typeof require & {
+      extensions?: typeof require.extensions;
+    };
+    const originalExtensions = patchedRequire.extensions;
+    patchedRequire.extensions = undefined;
+
+    try {
+      const matchPath = createMatchPath("/base", {});
+      expect(() => matchPath("missing-module")).not.toThrow();
+    } finally {
+      patchedRequire.extensions = originalExtensions;
+    }
+  });
 });
