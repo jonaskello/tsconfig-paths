@@ -3,6 +3,8 @@ import * as Filesystem from "./filesystem";
 import * as MappingEntry from "./mapping-entry";
 import * as TryPath from "./try-path";
 
+const defaultExtensions = [".js", ".json", ".node"];
+
 /**
  * Function that can match a path
  */
@@ -68,7 +70,9 @@ export function matchFromAbsolutePaths(
   requestedModule: string,
   readJson: Filesystem.ReadJsonSync = Filesystem.readJsonFromDiskSync,
   fileExists: Filesystem.FileExistsSync = Filesystem.fileExistsSync,
-  extensions: Array<string> = Object.keys(require.extensions),
+  extensions: Array<string> = Object.keys(require.extensions || {}).length
+    ? Object.keys(require.extensions || {})
+    : defaultExtensions,
   mainFields: (string | string[])[] = ["main"]
 ): string | undefined {
   const tryPaths = TryPath.getPathsToTry(
