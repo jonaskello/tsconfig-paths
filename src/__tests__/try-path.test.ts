@@ -95,6 +95,52 @@ describe("mapping-entry", () => {
     ]);
   });
 
+  it("should match paths with star in the middle of pattern", () => {
+    const result = getPathsToTry(
+      [".ts"],
+      [
+        {
+          pattern: "pre/fix/*.js",
+          paths: [join("/absolute", "base", "url", "foo2", "*")],
+        },
+      ],
+      "pre/fix/requested-module.js"
+    );
+
+    expect(result).toEqual([
+      {
+        type: "file",
+        path: join("/absolute", "base", "url", "foo2", "requested-module"),
+      },
+      {
+        type: "extension",
+        path: join("/absolute", "base", "url", "foo2", "requested-module.ts"),
+      },
+      {
+        type: "package",
+        path: join(
+          "/absolute",
+          "base",
+          "url",
+          "foo2",
+          "requested-module",
+          "package.json"
+        ),
+      },
+      {
+        type: "index",
+        path: join(
+          "/absolute",
+          "base",
+          "url",
+          "foo2",
+          "requested-module",
+          "index.ts"
+        ),
+      },
+    ]);
+  });
+
   it.each(["js", "jsx", "mjs", "cjs"])(
     "should include paths with ending .%s removed that matches requested module",
     (extension) => {
