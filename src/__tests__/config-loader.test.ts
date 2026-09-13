@@ -4,7 +4,7 @@ import {
   ConfigLoaderFailResult,
   ConfigLoaderSuccessResult,
 } from "../config-loader";
-import { join } from "path";
+import { join, resolve } from "path";
 
 describe("config-loader", (): void => {
   it("should use explicitParams when set", () => {
@@ -53,7 +53,7 @@ describe("config-loader", (): void => {
 
     const successResult = result as ConfigLoaderSuccessResult;
     expect(successResult.resultType).toBe("success");
-    expect(successResult.absoluteBaseUrl).toBe(join("/baz", "src"));
+    expect(successResult.absoluteBaseUrl).toBe(resolve("/baz", "src"));
   });
 
   it("should tolerate a missing baseUrl", () => {
@@ -96,6 +96,6 @@ describe("config-loader", (): void => {
     });
 
     const successResult = result as ConfigLoaderSuccessResult;
-    expect(successResult.absoluteBaseUrl).toEqual("/baz");
+    expect(successResult.absoluteBaseUrl).toEqual(resolve("/baz"));
   });
 });

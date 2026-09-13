@@ -42,7 +42,7 @@ export function getAbsoluteMappingEntries(
   if (!paths["*"] && addMatchAll) {
     absolutePaths.push({
       pattern: "*",
-      paths: [`${absoluteBaseUrl.replace(/\/$/, "")}/*`],
+      paths: [path.resolve(absoluteBaseUrl, "*")],
     });
   }
 

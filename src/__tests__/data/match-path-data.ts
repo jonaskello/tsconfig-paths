@@ -1,4 +1,4 @@
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 import { removeExtension } from "../../filesystem";
 
 export interface OneTest {
@@ -31,9 +31,9 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: {
       "lib/*": ["location/*"],
     },
-    existingFiles: [join("/root", "location", "mylib", "index.ts")],
+    existingFiles: [resolve("/root", "location", "mylib", "index.ts")],
     requestedModule: "lib/mylib",
-    expectedPath: dirname(join("/root", "location", "mylib", "index.ts")),
+    expectedPath: dirname(resolve("/root", "location", "mylib", "index.ts")),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
@@ -42,10 +42,10 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: {
       "lib/*": ["foo1/*", "foo2/*", "location/*", "foo3/*"],
     },
-    existingFiles: [join("/root", "location", "mylib", "index.ts")],
+    existingFiles: [resolve("/root", "location", "mylib", "index.ts")],
     requestedModule: "lib/mylib",
     extensions: [".ts"],
-    expectedPath: dirname(join("/root", "location", "mylib", "index.ts")),
+    expectedPath: dirname(resolve("/root", "location", "mylib", "index.ts")),
   },
   {
     name:
@@ -56,29 +56,29 @@ export const tests: ReadonlyArray<OneTest> = [
       "lib/*": ["location/*"],
     },
     existingFiles: [
-      join("/root", "location", "lib", "mylib", "index.ts"),
-      join("/root", "location", "mylib", "index.ts"),
+      resolve("/root", "location", "lib", "mylib", "index.ts"),
+      resolve("/root", "location", "mylib", "index.ts"),
     ],
     requestedModule: "lib/mylib",
-    expectedPath: dirname(join("/root", "location", "mylib", "index.ts")),
+    expectedPath: dirname(resolve("/root", "location", "mylib", "index.ts")),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
     name: "should locate path that matches with star and exists with extension",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "mylib.myext")],
+    existingFiles: [resolve("/root", "location", "mylib.myext")],
     requestedModule: "lib/mylib",
     extensions: [".js", ".myext"],
-    expectedPath: removeExtension(join("/root", "location", "mylib.myext")),
+    expectedPath: removeExtension(resolve("/root", "location", "mylib.myext")),
   },
   {
     name: "should resolve request with extension specified",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "test.jpg")],
+    existingFiles: [resolve("/root", "location", "test.jpg")],
     requestedModule: "lib/test.jpg",
-    expectedPath: join("/root", "location", "test.jpg"),
+    expectedPath: resolve("/root", "location", "test.jpg"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
@@ -87,39 +87,39 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: {
       "lib/foo": ["location/foo"],
     },
-    existingFiles: [join("/root", "location", "foo.ts")],
+    existingFiles: [resolve("/root", "location", "foo.ts")],
     requestedModule: "lib/foo",
-    expectedPath: removeExtension(join("/root", "location", "foo.ts")),
+    expectedPath: removeExtension(resolve("/root", "location", "foo.ts")),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
     name: "should resolve to parent folder when filename is in subfolder",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "mylib", "index.ts")],
+    existingFiles: [resolve("/root", "location", "mylib", "index.ts")],
     requestedModule: "lib/mylib",
-    expectedPath: dirname(join("/root", "location", "mylib", "index.ts")),
+    expectedPath: dirname(resolve("/root", "location", "mylib", "index.ts")),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
     name: "should resolve from main field in package.json",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "mylib", "kalle.ts")],
+    existingFiles: [resolve("/root", "location", "mylib", "kalle.ts")],
     packageJson: { main: "./kalle.ts" },
     requestedModule: "lib/mylib",
-    expectedPath: join("/root", "location", "mylib", "kalle.ts"),
+    expectedPath: resolve("/root", "location", "mylib", "kalle.ts"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
     name: "should resolve from main field in package.json (js)",
     absoluteBaseUrl: "/root",
     paths: { "lib/*": ["location/*"] },
-    existingFiles: [join("/root", "location", "mylib.js", "kalle.js")],
+    existingFiles: [resolve("/root", "location", "mylib.js", "kalle.js")],
     packageJson: { main: "./kalle.js" },
     requestedModule: "lib/mylib.js",
     extensions: [".ts", ".js"],
-    expectedPath: join("/root", "location", "mylib.js", "kalle.js"),
+    expectedPath: resolve("/root", "location", "mylib.js", "kalle.js"),
   },
   {
     name: "should resolve from list of fields by priority in package.json",
@@ -128,26 +128,26 @@ export const tests: ReadonlyArray<OneTest> = [
     mainFields: ["missing", "browser", "main"],
     packageJson: { main: "./main.js", browser: "./browser.js" },
     existingFiles: [
-      join("/root", "location", "mylibjs", "main.js"), // mainFilePath
-      join("/root", "location", "mylibjs", "browser.js"), // browserFilePath
+      resolve("/root", "location", "mylibjs", "main.js"), // mainFilePath
+      resolve("/root", "location", "mylibjs", "browser.js"), // browserFilePath
     ],
     extensions: [".ts", ".js"],
     requestedModule: "lib/mylibjs",
-    expectedPath: join("/root", "location", "mylibjs", "browser.js"),
+    expectedPath: resolve("/root", "location", "mylibjs", "browser.js"),
   },
   {
     name: "should ignore field mappings to missing files in package.json",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
     mainFields: ["browser", "main"],
-    existingFiles: [join("/root", "location", "mylibjs", "kalle.js")],
+    existingFiles: [resolve("/root", "location", "mylibjs", "kalle.js")],
     requestedModule: "lib/mylibjs",
     packageJson: {
       main: "./kalle.js",
       browser: "./nope.js",
     },
     extensions: [".ts", ".js"],
-    expectedPath: join("/root", "location", "mylibjs", "kalle.js"),
+    expectedPath: resolve("/root", "location", "mylibjs", "kalle.js"),
   },
   {
     name: "should resolve nested main fields",
@@ -155,18 +155,18 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: { "lib/*": ["location/*"] },
     mainFields: [["esnext", "main"]],
     packageJson: { esnext: { main: "./main.js" } },
-    existingFiles: [join("/root", "location", "mylibjs", "main.js")],
+    existingFiles: [resolve("/root", "location", "mylibjs", "main.js")],
     extensions: [".ts", ".js"],
     requestedModule: "lib/mylibjs",
-    expectedPath: join("/root", "location", "mylibjs", "main.js"),
+    expectedPath: resolve("/root", "location", "mylibjs", "main.js"),
   },
   {
     name: "should ignore advanced field mappings in package.json",
     absoluteBaseUrl: "/root/",
     paths: { "lib/*": ["location/*"] },
     existingFiles: [
-      join("/root", "location", "mylibjs", "kalle.js"),
-      join("/root", "location", "mylibjs", "browser.js"),
+      resolve("/root", "location", "mylibjs", "kalle.js"),
+      resolve("/root", "location", "mylibjs", "browser.js"),
     ],
     requestedModule: "lib/mylibjs",
     packageJson: {
@@ -174,15 +174,15 @@ export const tests: ReadonlyArray<OneTest> = [
       browser: { mylibjs: "./browser.js", "./kalle.js": "./browser.js" },
     },
     extensions: [".ts", ".js"],
-    expectedPath: join("/root", "location", "mylibjs", "kalle.js"),
+    expectedPath: resolve("/root", "location", "mylibjs", "kalle.js"),
   },
   {
     name: "should resolve to with the help of baseUrl when not explicitly set",
     absoluteBaseUrl: "/root/",
     paths: {},
-    existingFiles: [join("/root", "mylib", "index.ts")],
+    existingFiles: [resolve("/root", "mylib", "index.ts")],
     requestedModule: "mylib",
-    expectedPath: dirname(join("/root", "mylib", "index.ts")),
+    expectedPath: dirname(resolve("/root", "mylib", "index.ts")),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
@@ -190,7 +190,7 @@ export const tests: ReadonlyArray<OneTest> = [
     absoluteBaseUrl: "/root/",
     paths: {},
     addMatchAll: false,
-    existingFiles: [join("/root", "mylib", "index.ts")],
+    existingFiles: [resolve("/root", "mylib", "index.ts")],
     requestedModule: "mylib",
     expectedPath: undefined,
     extensions: defaultExtensionsWhenRunningInTsNode,
@@ -210,7 +210,7 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: {
       "lib/*": ["location/*"],
     },
-    existingFiles: [join("/root", "location", "mylib", "index.d.ts")],
+    existingFiles: [resolve("/root", "location", "mylib", "index.d.ts")],
     requestedModule: "lib/mylib",
     expectedPath: undefined,
     extensions: defaultExtensionsWhenRunningInTsNode,
@@ -219,12 +219,12 @@ export const tests: ReadonlyArray<OneTest> = [
     name: "should resolve main file with cjs file extension",
     absoluteBaseUrl: "/root/",
     paths: {},
-    existingFiles: [join("/root", "mylib", "index.cjs")],
+    existingFiles: [resolve("/root", "mylib", "index.cjs")],
     packageJson: {
       main: "./index.cjs",
     },
     requestedModule: "mylib",
-    expectedPath: join("/root", "mylib", "index.cjs"),
+    expectedPath: resolve("/root", "mylib", "index.cjs"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
   {
@@ -233,9 +233,9 @@ export const tests: ReadonlyArray<OneTest> = [
     paths: {
       "@/*": ["src/*"],
     },
-    existingFiles: [join("/root", "src", "foo.ts")],
+    existingFiles: [resolve("/root", "src", "foo.ts")],
     requestedModule: "@/foo.js",
-    expectedPath: join("/root", "src", "foo"),
+    expectedPath: resolve("/root", "src", "foo"),
     extensions: defaultExtensionsWhenRunningInTsNode,
   },
 ];
