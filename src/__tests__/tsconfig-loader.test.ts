@@ -103,7 +103,7 @@ describe("walkForTsConfig", () => {
   it("should find tsconfig in starting directory", () => {
     const pathToTsconfig = join("/root", "dir1", "tsconfig.json");
     const mockFiles: Record<string, string[]> = {
-      "/root/dir1": ["tsconfig.json"],
+      [join("/root", "dir1")]: ["tsconfig.json"],
     };
     const res = walkForTsConfig(
       join("/root", "dir1"),
@@ -115,7 +115,7 @@ describe("walkForTsConfig", () => {
   it("should find jsconfig in starting directory", () => {
     const pathToJsconfig = join("/root", "dir1", "jsconfig.json");
     const mockFiles: Record<string, string[]> = {
-      "/root/dir1": ["jsconfig.json"],
+      [join("/root", "dir1")]: ["jsconfig.json"],
     };
     const res = walkForTsConfig(
       join("/root", "dir1"),
@@ -128,7 +128,7 @@ describe("walkForTsConfig", () => {
   it("tsconfig.json take precedence over jsconfig.json when both exist", () => {
     const pathToTsconfig = join("/root/dir1", "tsconfig.json");
     const mockFiles: Record<string, string[]> = {
-      "/root/dir1": ["jsconfig.json", "tsconfig.json"],
+      [join("/root", "dir1")]: ["jsconfig.json", "tsconfig.json"],
     };
     const res = walkForTsConfig(
       join("/root", "dir1"),
@@ -140,7 +140,7 @@ describe("walkForTsConfig", () => {
   it("should find tsconfig in parent directory", () => {
     const pathToTsconfig = join("/root", "tsconfig.json");
     const mockFiles: Record<string, string[]> = {
-      "/root": ["tsconfig.json"],
+      [join("/root")]: ["tsconfig.json"],
     };
     const res = walkForTsConfig(
       join("/root", "dir1"),
@@ -152,7 +152,7 @@ describe("walkForTsConfig", () => {
   it("should find jsconfig in parent directory", () => {
     const pathToTsconfig = join("/root", "jsconfig.json");
     const mockFiles: Record<string, string[]> = {
-      "/root": ["jsconfig.json"],
+      [join("/root")]: ["jsconfig.json"],
     };
     const res = walkForTsConfig(
       join("/root", "dir1"),

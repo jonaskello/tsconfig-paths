@@ -27,13 +27,14 @@ jobs:
 
   test:
     name: "Test - Node: ${{ matrix.node_version }} - OS: ${{ matrix.os }}"
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: true
       matrix:
         os:
           - "ubuntu-latest"
+          - "windows-latest"
         node_version:
           - "14"
           - "16"
