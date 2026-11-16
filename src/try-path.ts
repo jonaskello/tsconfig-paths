@@ -20,7 +20,11 @@ export function getPathsToTry(
   absolutePathMappings: ReadonlyArray<MappingEntry>,
   requestedModule: string
 ): ReadonlyArray<TryPath> | undefined {
-  if (!absolutePathMappings || !requestedModule || requestedModule[0] === ".") {
+  if (
+    !absolutePathMappings ||
+    !requestedModule ||
+    /^\.\.?([/\\]|$)/.test(requestedModule)
+  ) {
     return undefined;
   }
 

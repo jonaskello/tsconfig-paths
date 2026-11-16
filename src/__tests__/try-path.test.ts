@@ -20,14 +20,24 @@ describe("mapping-entry", () => {
       paths: [join("/absolute", "src")],
     },
   ];
-  it("should return no paths for relative requested module", () => {
-    const result = getPathsToTry(
-      [".ts", "tsx"],
-      abosolutePathMappings,
-      "./requested-module"
-    );
-    expect(result).toBeUndefined();
-  });
+  it.each([
+    ".",
+    "..",
+    "./requested-module",
+    "../requested-module",
+    ".\\requested-module",
+    "..\\requested-module",
+  ])(
+    "should return no paths for relative requested module %s",
+    (requestedModule: string) => {
+      const result = getPathsToTry(
+        [".ts", "tsx"],
+        abosolutePathMappings,
+        requestedModule
+      );
+      expect(result).toBeUndefined();
+    }
+  );
 
   it("should return no paths if no pattern match the requested module", () => {
     const result = getPathsToTry(
