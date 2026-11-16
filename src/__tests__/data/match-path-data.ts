@@ -26,6 +26,34 @@ const defaultExtensionsWhenRunningInTsNode = [
 
 export const tests: ReadonlyArray<OneTest> = [
   {
+    name: "should resolve a dot-prefixed directory through baseUrl",
+    absoluteBaseUrl: "/root/",
+    paths: {},
+    existingFiles: [join("/root", ".foo", "bar.ts")],
+    requestedModule: ".foo/bar",
+    extensions: [".ts"],
+    expectedPath: join("/root", ".foo", "bar"),
+  },
+  {
+    name: "should resolve a dot-prefixed path alias",
+    absoluteBaseUrl: "/root/",
+    paths: { ".foo/*": ["location/*"] },
+    addMatchAll: false,
+    existingFiles: [join("/root", "location", "bar.ts")],
+    requestedModule: ".foo/bar",
+    extensions: [".ts"],
+    expectedPath: join("/root", "location", "bar"),
+  },
+  {
+    name: "should resolve a name beginning with two dots",
+    absoluteBaseUrl: "/root/",
+    paths: {},
+    existingFiles: [join("/root", "..foo", "bar.ts")],
+    requestedModule: "..foo/bar",
+    extensions: [".ts"],
+    expectedPath: join("/root", "..foo", "bar"),
+  },
+  {
     name: "should locate path that matches with star and exists",
     absoluteBaseUrl: "/root/",
     paths: {
